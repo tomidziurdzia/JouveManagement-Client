@@ -33,6 +33,7 @@ const SignUp = () => {
 
     if (values.password !== values.confirmPassword) {
       setAlert({ msg: "Passwords do not match", error: true });
+      return;
     }
 
     try {
@@ -40,7 +41,6 @@ const SignUp = () => {
 
       setAlert({ msg: data.msg, error: false });
 
-      console.log(data);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.log(error);
@@ -54,7 +54,7 @@ const SignUp = () => {
     <div className="w-full">
       {error === false ? (
         <div className="bg-primary text-white p-2 mb-4 text-center rounded-md text-sm">
-          {msg}
+          You have successfully created an account, check your email address.
         </div>
       ) : (
         <div>
@@ -74,6 +74,21 @@ const SignUp = () => {
                   name="businessName"
                   id="businessName"
                   value={values.businessName}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="mb-2">
+                <label className="block" htmlFor="cuit">
+                  Cuit
+                </label>
+                <input
+                  type="text"
+                  placeholder="20379143688"
+                  className="w-full mt-1 p-3 border rounded-md text-sm bg-gray-50"
+                  name="cuit"
+                  id="cuit"
+                  value={values.cuit}
                   onChange={handleChange}
                 />
               </div>

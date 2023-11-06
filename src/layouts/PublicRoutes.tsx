@@ -20,10 +20,7 @@ const PublicRoutes = () => {
             <Routes>
               <Route path="signin" element={<SignIn />} />
               <Route path="signup" element={<SignUp />} />
-              <Route
-                path="confirm-account/:token"
-                element={<ConfirmAccount />}
-              />
+              <Route path="confirm/:token" element={<ConfirmAccount />} />
               <Route path="new-password/:token" element={<NewPassword />} />
               <Route path="forget-password" element={<ForgetPassword />} />
             </Routes>

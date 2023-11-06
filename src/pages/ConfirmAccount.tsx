@@ -15,9 +15,9 @@ const ConfirmAccount = () => {
   React.useEffect(() => {
     const confirmAccount = async () => {
       try {
-        const url = `/business/confirm/${token}`;
+        const url = `/auth/confirm/${token}`;
         const { data } = await clientAxios(url);
-
+        console.log(data);
         setConfirm(true);
 
         setAlert({
@@ -43,7 +43,7 @@ const ConfirmAccount = () => {
           Confirm your account and manage your projects
         </h1>
 
-        <div>{<Alert msg={msg} error={error} />}</div>
+        <div className="mt-5">{<Alert msg={msg} error={error} />}</div>
 
         {confirm && (
           <div className="flex text-sm mt-4 justify-center text-center">
