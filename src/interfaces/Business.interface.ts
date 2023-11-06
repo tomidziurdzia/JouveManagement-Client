@@ -5,7 +5,8 @@ export interface BusinessInterface {
   email: string;
   picture?: string;
   password: string;
-  confirmed: boolean;
-  googleAccount: boolean;
-  token: string;
+  confirmed?: boolean;
+  googleAccount?: boolean;
+  confirmPassword: string;
+  token?: string;
 }

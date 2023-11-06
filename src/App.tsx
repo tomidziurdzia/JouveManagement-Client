@@ -1,9 +1,32 @@
-function App() {
+import { useEffect } from "react";
+import { useAuth } from "./hooks/useAuth";
+import { useAppSelector } from "./store/store";
+// import { Spinner } from "./components";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { ProtectedRoutes, PublicRoutes } from "./layouts";
+
+const App = () => {
+  const { status } = useAppSelector((state) => state.auth);
+
+  const { checkAuthToken } = useAuth();
+  useEffect(() => {
+    checkAuthToken();
+  }, []);
+  console.log(status);
+
+  // if (status === "checking") {
+  //   return <Spinner />;
+  // }
   return (
-    <div>
-      <p className="text-3xl text-red-400">Hola mundo</p>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/auth/*" element={<PublicRoutes />} />
+        <Route path="/*" element={<Navigate to="/auth/signin" />} />
+
+        <Route path="/*" element={<ProtectedRoutes />} />
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;

@@ -1,4 +1,4 @@
-import { BusinessInterface } from "./Business.interface";
+import { BusinessInterface } from "./";
 
 export interface AuthState {
   status: "checking" | "not-authenticated" | "authenticated";
