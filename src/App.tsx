@@ -4,6 +4,13 @@ import { useAppSelector } from "./store/store";
 import { Spinner } from "./components";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { ProtectedRoutes, PublicRoutes } from "./layouts";
+import { Dashboard } from "./pages/public_pages";
+import {
+  Employees,
+  Shipments,
+  Travels,
+  Vehicles,
+} from "./pages/protected_page";
 
 const App = () => {
   const { status } = useAppSelector((state) => state.auth);
@@ -11,8 +18,8 @@ const App = () => {
   const { checkAuthToken } = useAuth();
   useEffect(() => {
     checkAuthToken();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(status);
 
   if (status === "checking") {
     return <Spinner />;
@@ -27,8 +34,14 @@ const App = () => {
           </>
         ) : (
           <>
-            <Route path="/" element={<ProtectedRoutes />} />
             <Route path="/*" element={<Navigate to="/" />} />
+            <Route path="/" element={<ProtectedRoutes />}>
+              <Route index element={<Dashboard />} />
+              <Route path="/employees" element={<Employees />} />
+              <Route path="/vehicles" element={<Vehicles />} />
+              <Route path="/travels" element={<Travels />} />
+              <Route path="/shipments" element={<Shipments />} />
+            </Route>
           </>
         )}
       </Routes>

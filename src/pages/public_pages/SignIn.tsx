@@ -1,9 +1,9 @@
 import React from "react";
-import { ErrorInterface } from "../interfaces";
-import { Alert } from "../components";
+import { ErrorInterface } from "../../interfaces";
+import { Alert } from "../../components";
 import { Link } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
-import { useAppSelector } from "../store/store";
+import { useAuth } from "../../hooks/useAuth";
+import { useAppSelector } from "../../store/store";
 
 interface SignIn {
   email: string;
@@ -40,8 +40,7 @@ const SignIn = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(values);
-    startLogin(values);
+    await startLogin(values);
   };
 
   const { msg, error } = alert;

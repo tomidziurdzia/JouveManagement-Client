@@ -1,8 +1,8 @@
 import { Link, useParams } from "react-router-dom";
-import { Alert } from "../components";
-import clientAxios from "../config/clientAxios";
+import { Alert } from "../../components";
+import clientAxios from "../../config/clientAxios";
 import React from "react";
-import { ErrorInterface } from "../interfaces";
+import { ErrorInterface } from "../../interfaces";
 
 const NewPassword = () => {
   const { token } = useParams();

@@ -1,8 +1,8 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import { ErrorInterface } from "../interfaces";
-import clientAxios from "../config/clientAxios";
-import { Alert } from "../components";
+import { ErrorInterface } from "../../interfaces";
+import clientAxios from "../../config/clientAxios";
+import { Alert } from "../../components";
 
 const ConfirmAccount = () => {
   const { token } = useParams();

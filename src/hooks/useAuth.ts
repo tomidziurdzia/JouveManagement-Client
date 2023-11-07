@@ -15,8 +15,6 @@ export const useAuth = () => {
         password,
       });
 
-      console.log(data);
-
       localStorage.setItem("token", data.token);
       dispatch(onLogin({ businessName: data.businessName, email: data.email }));
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -27,12 +25,10 @@ export const useAuth = () => {
 
   const checkAuthToken = async () => {
     const token = localStorage.getItem("token");
-    console.log(token);
     if (!token) return dispatch(onLogout(undefined));
 
     try {
       const { data } = await clientAxios("/auth");
-      console.log(data);
       localStorage.setItem("token", data.token);
       dispatch(onLogin({ businessName: data.businessName, email: data.email }));
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

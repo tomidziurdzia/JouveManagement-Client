@@ -5,7 +5,7 @@ import {
   NewPassword,
   SignIn,
   SignUp,
-} from "../pages";
+} from "../pages/public_pages";
 
 const PublicRoutes = () => {
   return (

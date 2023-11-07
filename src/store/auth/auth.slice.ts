@@ -26,11 +26,11 @@ export const authSlice = createSlice({
       state.business = null;
       state.errorMessage = payload;
     },
-    clearErrorMessage: (state) => {
+    clearErrorMessageAuth: (state) => {
       state.errorMessage = undefined;
     },
   },
 });
 
-export const { onChecking, onLogin, onLogout, clearErrorMessage } =
+export const { onChecking, onLogin, onLogout, clearErrorMessageAuth } =
   authSlice.actions;

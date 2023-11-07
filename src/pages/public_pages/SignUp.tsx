@@ -1,7 +1,7 @@
 import React from "react";
-import { BusinessInterface, ErrorInterface } from "../interfaces";
-import clientAxios from "../config/clientAxios";
-import { Alert } from "../components";
+import { BusinessInterface, ErrorInterface } from "../../interfaces";
+import clientAxios from "../../config/clientAxios";
+import { Alert } from "../../components";
 import { Link } from "react-router-dom";
 
 const SignUp = () => {
