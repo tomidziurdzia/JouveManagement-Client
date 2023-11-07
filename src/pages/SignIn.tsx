@@ -1,8 +1,9 @@
 import React from "react";
 import { ErrorInterface } from "../interfaces";
-import clientAxios from "../config/clientAxios";
 import { Alert } from "../components";
 import { Link } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+import { useAppSelector } from "../store/store";
 
 interface SignIn {
   email: string;
@@ -10,6 +11,7 @@ interface SignIn {
 }
 
 const SignIn = () => {
+  const { startLogin } = useAuth();
   const [values, setValues] = React.useState<SignIn>({
     email: "",
     password: "",
@@ -19,6 +21,13 @@ const SignIn = () => {
     msg: "",
     error: undefined,
   });
+
+  const { errorMessage } = useAppSelector((state) => state.auth);
+  React.useEffect(() => {
+    if (errorMessage) {
+      setAlert(errorMessage);
+    }
+  }, [errorMessage]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -31,19 +40,8 @@ const SignIn = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    try {
-      const { data } = await clientAxios.post("/auth/login", values);
-      console.log(data);
-
-      setAlert({ msg: data.msg, error: false });
-
-      localStorage.setItem("token", data.token);
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      console.log(error);
-      setAlert({ msg: error.response.data.msg, error: true });
-    }
+    console.log(values);
+    startLogin(values);
   };
 
   const { msg, error } = alert;

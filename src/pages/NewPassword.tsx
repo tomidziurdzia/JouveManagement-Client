@@ -17,7 +17,7 @@ const NewPassword = () => {
   React.useEffect(() => {
     const checkToken = async () => {
       try {
-        await clientAxios(`/business/forget-password/${token}`);
+        await clientAxios(`/auth/forget-password/${token}`);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         setAlert({ msg: error.response.data.msg, error: true });
@@ -31,10 +31,9 @@ const NewPassword = () => {
     e.preventDefault();
 
     try {
-      const { data } = await clientAxios.post(
-        `/business/forget-password/${token}`,
-        { password }
-      );
+      const { data } = await clientAxios.post(`/auth/new-password/${token}`, {
+        password,
+      });
 
       setAlert({ msg: data.msg, error: false });
       setViewForm(!viewForm);
@@ -54,15 +53,15 @@ const NewPassword = () => {
       </h1>
       <div className="mt-6">{msg && <Alert msg={msg} error={error} />}</div>
       <div>
-        {!error && !viewForm && (
+        {error !== false && (
           <form action="" onSubmit={handleSubmit}>
             <div className="mb-2">
               <label className="block" htmlFor="password">
-                Email
+                Password
               </label>
               <input
                 type="password"
-                placeholder="administracion@transportejouve.com.ar"
+                placeholder="*****************"
                 className="w-full mt-1 p-3 border rounded-md text-sm bg-gray-50"
                 name="password"
                 id="password"

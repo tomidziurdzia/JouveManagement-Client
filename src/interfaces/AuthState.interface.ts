@@ -1,7 +1,7 @@
-import { BusinessInterface } from "./";
+import { BusinessInterface, ErrorInterface } from "./";
 
 export interface AuthState {
   status: "checking" | "not-authenticated" | "authenticated";
   business: BusinessInterface | null;
-  errorMessage: Error | undefined;
+  errorMessage: ErrorInterface | undefined;
 }

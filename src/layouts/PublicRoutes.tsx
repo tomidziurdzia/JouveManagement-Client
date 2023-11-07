@@ -14,7 +14,7 @@ const PublicRoutes = () => {
         <div className="flex justify-center items-center mb-5">
           <img src="/public/logoCompleto.png" className="w-3/4" />
         </div>
-        <div className="lg:m-auto lg:w-full lg:flex lg:justify-center">
+        <div className="w-full">
           <div className="flex justify-center">
             {/* <Outlet /> */}
             <Routes>
