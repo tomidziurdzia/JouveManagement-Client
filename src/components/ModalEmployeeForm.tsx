@@ -1,9 +1,10 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Dispatch, Fragment, SetStateAction, useEffect, useState } from "react";
-import { useAppSelector } from "../store/store";
+import { useAppDispatch, useAppSelector } from "../store/store";
 import { EmployeeInterface, ErrorInterface } from "../interfaces";
 import { useEmployee } from "../hooks/useEmployee";
 import { Alert } from "./";
+import { onGetEmployee } from "../store";
 
 interface Modal {
   modalForm: boolean;
@@ -11,9 +12,11 @@ interface Modal {
 }
 
 const ModalEmployeeForm = ({ modalForm, setModalForm }: Modal) => {
+  const dispatch = useAppDispatch();
   const { employee } = useAppSelector((state) => state.employee);
   const { errorMessage } = useAppSelector((state) => state.employee);
-  const { startNewEmployee } = useEmployee();
+  const { startNewEmployee, startEditEmployee, startLoadingEmployees } =
+    useEmployee();
 
   useEffect(() => {
     if (errorMessage) {
@@ -23,6 +26,20 @@ const ModalEmployeeForm = ({ modalForm, setModalForm }: Modal) => {
       });
     }
   }, [errorMessage]);
+
+  useEffect(() => {
+    if (employee?.id_employee) {
+      setValues({
+        name: employee.name,
+        lastname: employee.lastname,
+        password: employee.password,
+        type: employee.type,
+        cuil: employee.cuil,
+        id_employee: employee.id_employee,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [modalForm]);
 
   const [alert, setAlert] = useState<ErrorInterface>({
     msg: "",
@@ -38,7 +55,6 @@ const ModalEmployeeForm = ({ modalForm, setModalForm }: Modal) => {
   });
 
   const handleClick = () => {
-    setModalForm(!modalForm);
     setAlert({
       msg: "",
       error: undefined,
@@ -50,6 +66,8 @@ const ModalEmployeeForm = ({ modalForm, setModalForm }: Modal) => {
       password: "",
       type: "",
     });
+    setModalForm(!modalForm);
+    dispatch(onGetEmployee(null));
   };
 
   const handleChange = (
@@ -64,9 +82,16 @@ const ModalEmployeeForm = ({ modalForm, setModalForm }: Modal) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const data = await startNewEmployee(values);
+    let data;
+    if (employee?.id_employee) {
+      data = await startEditEmployee(values);
+      await startLoadingEmployees();
 
-    if (data === undefined) return;
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    } else {
+      data = await startNewEmployee(values);
+      if (data === undefined) return;
+    }
 
     setValues({
       name: "",
@@ -75,6 +100,7 @@ const ModalEmployeeForm = ({ modalForm, setModalForm }: Modal) => {
       password: "",
       type: "",
     });
+
     setModalForm(!modalForm);
     setAlert({
       msg: "",
@@ -181,7 +207,11 @@ const ModalEmployeeForm = ({ modalForm, setModalForm }: Modal) => {
                         onChange={handleChange}
                       />
                     </div>
-                    <div className="mb-5">
+                    <div
+                      className={`"mb-5" ${
+                        employee?.id_employee ? "hidden" : ""
+                      }`}
+                    >
                       <label htmlFor="cuil" className="font-bold text-m">
                         Cuil
                       </label>

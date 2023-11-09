@@ -29,8 +29,12 @@ export const employeeSlice = createSlice({
       state.employees = [...state.employees, payload];
     },
     onUpdateEmployee: (state, { payload }) => {
-      state.employee = payload;
-      state.errorMessage = payload;
+      state.employees = state.employees.map((employe) => {
+        if (employe.id_employee === payload.id) {
+          return payload;
+        }
+        return employe;
+      });
     },
     onDeleteEmployee: (state, { payload }) => {
       state.employee = payload;
