@@ -37,8 +37,9 @@ export const employeeSlice = createSlice({
       });
     },
     onDeleteEmployee: (state, { payload }) => {
-      state.employee = payload;
-      state.errorMessage = payload;
+      state.employees = state.employees.filter(
+        (employee) => employee.id_employee !== payload
+      );
     },
     onErrorMessage: (state, { payload }) => {
       state.errorMessage = payload;

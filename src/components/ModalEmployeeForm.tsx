@@ -11,6 +11,8 @@ interface Modal {
   setModalForm: Dispatch<SetStateAction<boolean>>;
 }
 
+//TODO: ME FALTA VER PORQUE NO PUEDO LIMPIAR EL FORMULARIO CUANDO GUARDO CAMBIOS SIN MODIFICAR NADA
+
 const ModalEmployeeForm = ({ modalForm, setModalForm }: Modal) => {
   const dispatch = useAppDispatch();
   const { employee } = useAppSelector((state) => state.employee);

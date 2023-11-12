@@ -6,6 +6,7 @@ import {
   onGetEmployees,
   onGetEmployee,
   onUpdateEmployee,
+  onDeleteEmployee,
 } from "../store";
 
 import { useAppDispatch } from "../store/store";
@@ -74,6 +75,21 @@ export const useEmployee = () => {
     }
   };
 
+  const startDeleteEmployee = async (employee: EmployeeInterface) => {
+    try {
+      await clientAxios.delete(`/employee/${employee.id_employee}`);
+      dispatch(onDeleteEmployee(employee.id_employee));
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      dispatch(
+        onErrorMessage({
+          msg: error.response.data.msg,
+          error: true,
+        })
+      );
+    }
+  };
+
   const startLoadingEmployees = async () => {
     try {
       const { data } = await clientAxios("/employee");
@@ -87,6 +103,7 @@ export const useEmployee = () => {
     startNewEmployee,
     startGetEmployee,
     startEditEmployee,
+    startDeleteEmployee,
     startLoadingEmployees,
   };
 };
