@@ -1,22 +1,30 @@
 import { Dispatch, Fragment, SetStateAction, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useEmployee } from "../hooks/useEmployee";
-import { EmployeeInterface, ErrorInterface } from "../interfaces";
+import {
+  EmployeeInterface,
+  ErrorInterface,
+  VehicleInterface,
+} from "../interfaces";
 import { Alert } from ".";
 import { useAppSelector } from "../store/store";
+import { useVehicle } from "../hooks/useVehicle";
 
 interface Props {
   modalDelete: boolean;
   setModalDelete: Dispatch<SetStateAction<boolean>>;
-  employee: EmployeeInterface;
+  employee?: EmployeeInterface;
+  vehicle?: VehicleInterface;
 }
 
 const ModalDelete: React.FC<Props> = ({
   modalDelete,
   setModalDelete,
   employee,
+  vehicle,
 }) => {
   const { startDeleteEmployee } = useEmployee();
+  const { startDeleteVehicle } = useVehicle();
   const { errorMessage } = useAppSelector((state) => state.employee);
 
   const handleClose = () => {
@@ -44,8 +52,11 @@ const ModalDelete: React.FC<Props> = ({
   }, [errorMessage]);
 
   const handleSubmit = async () => {
-    const data = await startDeleteEmployee(employee);
-    console.log(data);
+    if (employee) {
+      await startDeleteEmployee(employee!);
+    } else if (vehicle) {
+      await startDeleteVehicle(vehicle!);
+    }
   };
 
   const { msg, error } = alert;

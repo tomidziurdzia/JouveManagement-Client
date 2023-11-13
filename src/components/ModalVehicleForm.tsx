@@ -1,23 +1,21 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Dispatch, Fragment, SetStateAction, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../store/store";
-import { EmployeeInterface, ErrorInterface } from "../interfaces";
-import { useEmployee } from "../hooks/useEmployee";
-import { Alert } from "./";
-import { onGetEmployee } from "../store";
+import { useVehicle } from "../hooks/useVehicle";
+import { VehicleInterface, ErrorInterface } from "../interfaces";
+import { onGetVehicle } from "../store";
+import { Alert } from ".";
 
 interface Modal {
   modalForm: boolean;
   setModalForm: Dispatch<SetStateAction<boolean>>;
 }
 
-//TODO: ME FALTA VER PORQUE NO PUEDO LIMPIAR EL FORMULARIO CUANDO GUARDO CAMBIOS SIN MODIFICAR NADA
-
-const ModalEmployeeForm = ({ modalForm, setModalForm }: Modal) => {
+const ModalVehicleForm = ({ modalForm, setModalForm }: Modal) => {
   const dispatch = useAppDispatch();
-  const { employee, errorMessage } = useAppSelector((state) => state.employee);
-  const { startNewEmployee, startEditEmployee, startLoadingEmployees } =
-    useEmployee();
+  const { errorMessage, vehicle } = useAppSelector((state) => state.vehicle);
+  const { startNewVehicle, startEditVehicle, startLoadingVehicles } =
+    useVehicle();
 
   useEffect(() => {
     if (errorMessage) {
@@ -29,17 +27,14 @@ const ModalEmployeeForm = ({ modalForm, setModalForm }: Modal) => {
   }, [errorMessage]);
 
   useEffect(() => {
-    if (employee?.id_employee) {
+    if (vehicle?.id_vehicle) {
       setValues({
-        name: employee.name,
-        lastname: employee.lastname,
-        password: employee.password,
-        type: employee.type,
-        cuil: employee.cuil,
-        id_employee: employee.id_employee,
+        patent: vehicle.patent,
+        model: vehicle.model,
+        typeVehicle: vehicle.typeVehicle,
+        id_vehicle: vehicle.id_vehicle,
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [modalForm]);
 
   const [alert, setAlert] = useState<ErrorInterface>({
@@ -47,12 +42,10 @@ const ModalEmployeeForm = ({ modalForm, setModalForm }: Modal) => {
     error: false,
   });
 
-  const [values, setValues] = useState<EmployeeInterface>({
-    name: "",
-    lastname: "",
-    cuil: "",
-    password: "",
-    type: "",
+  const [values, setValues] = useState<VehicleInterface>({
+    patent: "",
+    model: "",
+    typeVehicle: "",
   });
 
   const handleClick = () => {
@@ -61,14 +54,12 @@ const ModalEmployeeForm = ({ modalForm, setModalForm }: Modal) => {
       error: undefined,
     });
     setValues({
-      name: "",
-      lastname: "",
-      cuil: "",
-      password: "",
-      type: "",
+      patent: "",
+      model: "",
+      typeVehicle: "",
     });
+    dispatch(onGetVehicle(null));
     setModalForm(!modalForm);
-    dispatch(onGetEmployee(null));
   };
 
   const handleChange = (
@@ -84,22 +75,20 @@ const ModalEmployeeForm = ({ modalForm, setModalForm }: Modal) => {
     e.preventDefault();
 
     let data;
-    if (employee?.id_employee) {
-      data = await startEditEmployee(values);
-      await startLoadingEmployees(1, 1);
+    if (vehicle?.id_vehicle) {
+      data = await startEditVehicle(values);
+      await startLoadingVehicles(1, 1);
     } else {
-      data = await startNewEmployee(values);
+      data = await startNewVehicle(values);
+      console.log(data);
       if (data === undefined) return;
     }
 
     setValues({
-      name: "",
-      lastname: "",
-      cuil: "",
-      password: "",
-      type: "",
+      patent: "",
+      model: "",
+      typeVehicle: "",
     });
-
     setModalForm(!modalForm);
     setAlert({
       msg: "",
@@ -175,87 +164,57 @@ const ModalEmployeeForm = ({ modalForm, setModalForm }: Modal) => {
                     as="h3"
                     className="text-xl leading-6 font-boldtext-center font-bold text-center"
                   >
-                    {employee?.id_employee ? "Edit Employee" : "New Employee"}
+                    {vehicle?.id_vehicle ? "Edit Vehicle" : "New Vehicle"}
                   </Dialog.Title>
                   <form onSubmit={handleSubmit} className="my-10" action="">
                     <div className="mb-5">
-                      <label htmlFor="name" className="font-bold text-m">
-                        Name
+                      <label htmlFor="patent" className="font-bold text-m">
+                        Patent
                       </label>
                       <input
-                        id="name"
+                        disabled={vehicle?.id_vehicle ? true : false}
+                        id="patent"
                         type="text"
                         className="border w-full mt-2 placeholder-gray-400 rounded-md p-2"
-                        placeholder="Tomas"
-                        name="name"
-                        value={values.name}
+                        placeholder="AB213CD"
+                        name="patent"
+                        value={values.patent}
                         onChange={handleChange}
                       />
                     </div>
                     <div className="mb-5">
-                      <label htmlFor="lastname" className="font-bold text-m">
-                        Lastname
+                      <label htmlFor="model" className="font-bold text-m">
+                        Model
                       </label>
                       <input
-                        id="lastname"
+                        id="model"
                         type="text"
                         className="border w-full mt-2 placeholder-gray-400 rounded-md p-2"
-                        placeholder="Dziurdzia"
-                        name="lastname"
-                        value={values.lastname}
-                        onChange={handleChange}
-                      />
-                    </div>
-                    <div
-                      className={`"mb-5" ${
-                        employee?.id_employee ? "hidden" : ""
-                      }`}
-                    >
-                      <label htmlFor="cuil" className="font-bold text-m">
-                        Cuil
-                      </label>
-                      <input
-                        id="cuil"
-                        type="text"
-                        className="border w-full mt-2 placeholder-gray-400 rounded-md p-2"
-                        placeholder="20379143688"
-                        name="cuil"
-                        value={values.cuil}
-                        onChange={handleChange}
-                      />
-                    </div>
-                    <div className="mb-5">
-                      <label htmlFor="password" className="font-bold text-m">
-                        Password
-                      </label>
-                      <input
-                        id="password"
-                        type="password"
-                        className="border w-full mt-2 placeholder-gray-400 rounded-md p-2"
-                        placeholder="**********"
-                        name="password"
-                        value={values.password}
+                        placeholder="Mercedes Benz 1721"
+                        name="model"
+                        value={values.model}
                         onChange={handleChange}
                       />
                     </div>
 
                     <div className="mb-5">
-                      <label htmlFor="type" className="font-bold text-m">
-                        Type
+                      <label htmlFor="typeVehicle" className="font-bold text-m">
+                        Type Vehicle
                       </label>
                       <select
-                        name="type"
-                        id="type"
-                        value={values.type}
+                        name="typeVehicle"
+                        id="typeVehicle"
+                        value={values.typeVehicle}
                         onChange={handleChange}
                         className="border w-full mt-2 placeholder-gray-400 rounded-md p-2"
                       >
                         <option value="" disabled>
                           -- Select --
                         </option>
-                        <option value="driver">Driver</option>
-                        <option value="assistant">Assistant</option>
-                        <option value="administrative">Administrative</option>
+                        <option value="chasis truck">Chasis Truck</option>
+                        <option value="balancin truck">Balancin Truck</option>
+                        <option value="tractor">Tractor</option>
+                        <option value="semirremolque">Semirremolque</option>v
                       </select>
                     </div>
 
@@ -264,7 +223,7 @@ const ModalEmployeeForm = ({ modalForm, setModalForm }: Modal) => {
                     <input
                       type="submit"
                       value={
-                        employee?.id_employee ? "Save Changes" : "Save Employee"
+                        vehicle?.id_vehicle ? "Save Changes" : "Save Vehicle"
                       }
                       className="bg-primary text-center text-white py-2 w-full rounded hover:cursor-pointer hover:opacity-80 font-bold text-xl transition-colors"
                     />
@@ -279,4 +238,4 @@ const ModalEmployeeForm = ({ modalForm, setModalForm }: Modal) => {
   );
 };
 
-export { ModalEmployeeForm };
+export { ModalVehicleForm };

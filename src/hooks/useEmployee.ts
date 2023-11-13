@@ -1,12 +1,12 @@
 import clientAxios from "../config/clientAxios";
 import { EmployeeInterface } from "../interfaces";
 import {
-  onNewEmployee,
-  onErrorMessage,
-  onGetEmployees,
   onGetEmployee,
+  onGetEmployees,
+  onNewEmployee,
   onUpdateEmployee,
   onDeleteEmployee,
+  onErrorMessageEmployee,
 } from "../store";
 
 import { useAppDispatch } from "../store/store";
@@ -15,12 +15,10 @@ export const useEmployee = () => {
   const dispatch = useAppDispatch();
 
   const startNewEmployee = async (employee: EmployeeInterface) => {
-    console.log(employee);
     try {
       const { data } = await clientAxios.post("/employee", employee);
-      console.log(data);
       dispatch(
-        onErrorMessage({
+        onErrorMessageEmployee({
           msg: "",
           error: false,
         })
@@ -31,7 +29,7 @@ export const useEmployee = () => {
     } catch (error: any) {
       console.log(error);
       dispatch(
-        onErrorMessage({
+        onErrorMessageEmployee({
           msg: error.response.data.msg,
           error: true,
         })
@@ -47,7 +45,7 @@ export const useEmployee = () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       dispatch(
-        onErrorMessage({
+        onErrorMessageEmployee({
           msg: error.response.data.msg,
           error: true,
         })
@@ -67,7 +65,7 @@ export const useEmployee = () => {
     } catch (error: any) {
       console.log(error);
       dispatch(
-        onErrorMessage({
+        onErrorMessageEmployee({
           msg: error.response.data.msg,
           error: true,
         })
@@ -82,7 +80,7 @@ export const useEmployee = () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       dispatch(
-        onErrorMessage({
+        onErrorMessageEmployee({
           msg: error.response.data.msg,
           error: true,
         })

@@ -39,18 +39,18 @@ const Employee = ({ employee }: Props) => {
         <p className="m-auto capitalize">{employee.type}</p>
       </div>
       <div className="w-3/12 flex justify-center text-white gap-4">
-        <button className="bg-green-200 hover:bg-green-300 p-2 rounded-lg shadow-sm w-full">
+        <button className="bg-green-200 hover:bg-green-300 transition-colors p-2 rounded-lg shadow-sm w-full">
           View
         </button>
         <button
           onClick={handleClickEdit}
-          className="bg-gray-300 hover:bg-gray-400 p-2 rounded-lg shadow-sm w-full"
+          className="bg-gray-300 hover:bg-gray-400 transition-colors p-2 rounded-lg shadow-sm w-full"
         >
           Edit
         </button>
         <button
           onClick={handleClickDelete}
-          className="bg-red-200 hover:bg-red-300 p-2 rounded-lg shadow-sm w-full"
+          className="bg-red-200 hover:bg-red-300 transition-colors p-2 rounded-lg shadow-sm w-full"
         >
           Delete
         </button>

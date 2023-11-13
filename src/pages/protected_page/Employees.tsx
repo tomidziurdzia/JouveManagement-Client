@@ -10,11 +10,16 @@ const Employees = () => {
   const [modalForm, setModalForm] = useState(false);
   const { startLoadingEmployees } = useEmployee();
   const { employees } = useAppSelector((state) => state.employee);
-  const { page, handlePrev, handleNext, employeesPerPage, lastPage } =
-    usePagination();
+  const {
+    page,
+    handlePrev,
+    handleNext,
+    itemsPerPage,
+    lastPageEmployees: lastPage,
+  } = usePagination();
 
   useEffect(() => {
-    startLoadingEmployees(page, employeesPerPage);
+    startLoadingEmployees(page, itemsPerPage);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [employees.length, page]);
 

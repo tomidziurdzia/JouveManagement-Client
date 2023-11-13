@@ -7,3 +7,5 @@ export * from "./Employee";
 export * from "./ModalEmployeeForm";
 export * from "./ModalDelete";
 export * from "./Pagination";
+export * from "./Vehicle";
+export * from "./ModalVehicleForm";

@@ -44,7 +44,7 @@ export const employeeSlice = createSlice({
         (employee) => employee.id_employee !== payload
       );
     },
-    onErrorMessage: (state, { payload }) => {
+    onErrorMessageEmployee: (state, { payload }) => {
       state.errorMessage = payload;
     },
     clearErrorMessageEmployee: (state) => {
@@ -59,6 +59,6 @@ export const {
   onNewEmployee,
   onUpdateEmployee,
   onDeleteEmployee,
-  onErrorMessage,
+  onErrorMessageEmployee,
   clearErrorMessageEmployee,
 } = employeeSlice.actions;
