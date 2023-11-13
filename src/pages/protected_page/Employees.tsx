@@ -1,19 +1,22 @@
 import { useEffect, useState } from "react";
 import { IoAdd } from "react-icons/io5";
 import { EmployeeInterface } from "../../interfaces";
-import { ModalEmployeeForm, Employee } from "../../components";
+import { ModalEmployeeForm, Employee, Pagination } from "../../components";
 import { useAppSelector } from "../../store/store";
 import { useEmployee } from "../../hooks/useEmployee";
+import { usePagination } from "../../hooks/usePagination";
 
 const Employees = () => {
   const [modalForm, setModalForm] = useState(false);
   const { startLoadingEmployees } = useEmployee();
   const { employees } = useAppSelector((state) => state.employee);
+  const { page, handlePrev, handleNext, employeesPerPage, lastPage } =
+    usePagination();
 
   useEffect(() => {
-    startLoadingEmployees();
+    startLoadingEmployees(page, employeesPerPage);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [employees.length]);
+  }, [employees.length, page]);
 
   const handleClick = () => {
     setModalForm(!modalForm);
@@ -47,6 +50,12 @@ const Employees = () => {
           )}
         </>
       </div>
+      <Pagination
+        handlePrev={handlePrev}
+        handleNext={handleNext}
+        page={page}
+        lastPage={lastPage}
+      />
     </div>
   );
 };

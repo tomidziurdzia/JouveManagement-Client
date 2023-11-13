@@ -90,9 +90,13 @@ export const useEmployee = () => {
     }
   };
 
-  const startLoadingEmployees = async () => {
+  const startLoadingEmployees = async (page: number, size: number) => {
     try {
-      const { data } = await clientAxios("/employee");
+      // const { data } = await clientAxios("/employee");
+      const { data } = await clientAxios.get(
+        `/employee?page=${page}&size=${size}`
+      );
+
       dispatch(onGetEmployees(data));
     } catch (error) {
       console.log(error);

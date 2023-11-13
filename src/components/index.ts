@@ -6,3 +6,4 @@ export * from "./Sidebar";
 export * from "./Employee";
 export * from "./ModalEmployeeForm";
 export * from "./ModalDelete";
+export * from "./Pagination";

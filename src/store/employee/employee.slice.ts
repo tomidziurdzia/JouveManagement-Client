@@ -5,12 +5,14 @@ interface EmployeeState {
   employees: EmployeeInterface[];
   employee: EmployeeInterface | null;
   errorMessage: ErrorInterface | undefined;
+  total: number;
 }
 
 const initialState: EmployeeState = {
   employees: [],
   employee: null,
   errorMessage: undefined,
+  total: 0,
 };
 
 export const employeeSlice = createSlice({
@@ -22,8 +24,9 @@ export const employeeSlice = createSlice({
       state.errorMessage = undefined;
     },
     onGetEmployees: (state, { payload }) => {
-      state.employees = payload;
+      state.employees = payload.employees;
       state.errorMessage = undefined;
+      state.total = payload.total;
     },
     onNewEmployee: (state, { payload }) => {
       state.employees = [...state.employees, payload];
