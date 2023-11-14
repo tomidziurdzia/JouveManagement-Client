@@ -1,21 +1,20 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Dispatch, Fragment, SetStateAction, useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../store/store";
-import { useVehicle } from "../hooks/useVehicle";
-import { VehicleInterface, ErrorInterface } from "../interfaces";
-import { onGetVehicle } from "../store";
-import { Alert } from ".";
+import { useAppDispatch, useAppSelector } from "../../store/store";
+import { useVehicle } from "../../hooks/useVehicle";
+import { VehicleInterface, ErrorInterface } from "../../interfaces";
+import { onGetVehicle } from "../../store";
+import { Alert } from "..";
 
 interface Modal {
   modalForm: boolean;
   setModalForm: Dispatch<SetStateAction<boolean>>;
 }
 
-const ModalVehicleForm = ({ modalForm, setModalForm }: Modal) => {
+const ModalNewVehicle = ({ modalForm, setModalForm }: Modal) => {
   const dispatch = useAppDispatch();
   const { errorMessage, vehicle } = useAppSelector((state) => state.vehicle);
-  const { startNewVehicle, startEditVehicle, startLoadingVehicles } =
-    useVehicle();
+  const { startNewVehicle } = useVehicle();
 
   useEffect(() => {
     if (errorMessage) {
@@ -25,17 +24,6 @@ const ModalVehicleForm = ({ modalForm, setModalForm }: Modal) => {
       });
     }
   }, [errorMessage]);
-
-  useEffect(() => {
-    if (vehicle?.id_vehicle) {
-      setValues({
-        patent: vehicle.patent,
-        model: vehicle.model,
-        typeVehicle: vehicle.typeVehicle,
-        id_vehicle: vehicle.id_vehicle,
-      });
-    }
-  }, [modalForm]);
 
   const [alert, setAlert] = useState<ErrorInterface>({
     msg: "",
@@ -74,15 +62,8 @@ const ModalVehicleForm = ({ modalForm, setModalForm }: Modal) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    let data;
-    if (vehicle?.id_vehicle) {
-      data = await startEditVehicle(values);
-      await startLoadingVehicles(1, 1);
-    } else {
-      data = await startNewVehicle(values);
-      console.log(data);
-      if (data === undefined) return;
-    }
+    const data = await startNewVehicle(values);
+    if (data === undefined) return;
 
     setValues({
       patent: "",
@@ -238,4 +219,4 @@ const ModalVehicleForm = ({ modalForm, setModalForm }: Modal) => {
   );
 };
 
-export { ModalVehicleForm };
+export { ModalNewVehicle };

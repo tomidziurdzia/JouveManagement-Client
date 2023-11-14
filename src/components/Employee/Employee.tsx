@@ -1,8 +1,8 @@
 import { IoPersonOutline } from "react-icons/io5";
-import { EmployeeInterface } from "../interfaces";
-import { useEmployee } from "../hooks/useEmployee";
+import { EmployeeInterface } from "../../interfaces";
+import { useEmployee } from "../../hooks/useEmployee";
 import { useState } from "react";
-import { ModalDelete, ModalEmployeeForm } from ".";
+import { ModalDeleteEmployee, ModalEditEmployee } from "./";
 
 interface Props {
   employee: EmployeeInterface;
@@ -55,8 +55,12 @@ const Employee = ({ employee }: Props) => {
           Delete
         </button>
       </div>
-      <ModalEmployeeForm modalForm={modalForm} setModalForm={setModalForm} />
-      <ModalDelete
+      <ModalEditEmployee
+        employee={employee}
+        modalForm={modalForm}
+        setModalForm={setModalForm}
+      />
+      <ModalDeleteEmployee
         modalDelete={modalDelete}
         setModalDelete={setModalDelete}
         employee={employee}

@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { VehicleInterface } from "../interfaces";
-import { useVehicle } from "../hooks/useVehicle";
+import { VehicleInterface } from "../../interfaces";
+import { useVehicle } from "../../hooks/useVehicle";
 import { IoCarOutline } from "react-icons/io5";
-import { ModalDelete, ModalVehicleForm } from ".";
+import { ModalDeleteVehicle, ModalEditVehicle } from ".";
 
 interface Props {
   vehicle: VehicleInterface;
@@ -51,8 +51,12 @@ const Vehicle = ({ vehicle }: Props) => {
           Delete
         </button>
       </div>
-      <ModalVehicleForm modalForm={modalForm} setModalForm={setModalForm} />
-      <ModalDelete
+      <ModalEditVehicle
+        vehicle={vehicle}
+        modalForm={modalForm}
+        setModalForm={setModalForm}
+      />
+      <ModalDeleteVehicle
         modalDelete={modalDelete}
         setModalDelete={setModalDelete}
         vehicle={vehicle}

@@ -1,23 +1,21 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Dispatch, Fragment, SetStateAction, useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../store/store";
-import { EmployeeInterface, ErrorInterface } from "../interfaces";
-import { useEmployee } from "../hooks/useEmployee";
-import { Alert } from "./";
-import { onGetEmployee } from "../store";
+import { useAppDispatch, useAppSelector } from "../../store/store";
+import { EmployeeInterface, ErrorInterface } from "../../interfaces";
+import { useEmployee } from "../../hooks/useEmployee";
+import { Alert } from "..";
+import { onGetEmployee } from "../../store";
 
 interface Modal {
+  employee: EmployeeInterface;
   modalForm: boolean;
   setModalForm: Dispatch<SetStateAction<boolean>>;
 }
 
-//TODO: ME FALTA VER PORQUE NO PUEDO LIMPIAR EL FORMULARIO CUANDO GUARDO CAMBIOS SIN MODIFICAR NADA
-
-const ModalEmployeeForm = ({ modalForm, setModalForm }: Modal) => {
+const ModalEditEmployee = ({ employee, modalForm, setModalForm }: Modal) => {
   const dispatch = useAppDispatch();
-  const { employee, errorMessage } = useAppSelector((state) => state.employee);
-  const { startNewEmployee, startEditEmployee, startLoadingEmployees } =
-    useEmployee();
+  const { errorMessage } = useAppSelector((state) => state.employee);
+  const { startEditEmployee, startLoadingEmployees } = useEmployee();
 
   useEffect(() => {
     if (errorMessage) {
@@ -28,20 +26,6 @@ const ModalEmployeeForm = ({ modalForm, setModalForm }: Modal) => {
     }
   }, [errorMessage]);
 
-  useEffect(() => {
-    if (employee?.id_employee) {
-      setValues({
-        name: employee.name,
-        lastname: employee.lastname,
-        password: employee.password,
-        type: employee.type,
-        cuil: employee.cuil,
-        id_employee: employee.id_employee,
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [modalForm]);
-
   const [alert, setAlert] = useState<ErrorInterface>({
     msg: "",
     error: false,
@@ -50,16 +34,32 @@ const ModalEmployeeForm = ({ modalForm, setModalForm }: Modal) => {
   const [values, setValues] = useState<EmployeeInterface>({
     name: "",
     lastname: "",
-    cuil: "",
     password: "",
     type: "",
+    cuil: "",
+    id_employee: "",
   });
+
+  useEffect(() => {
+    if (employee) {
+      setValues({
+        name: employee.name || "",
+        lastname: employee.lastname || "",
+        password: employee.password || "",
+        type: employee.type || "",
+        cuil: employee.cuil || "",
+        id_employee: employee.id_employee || "",
+      });
+    }
+  }, [employee, modalForm]);
 
   const handleClick = () => {
     setAlert({
       msg: "",
       error: undefined,
     });
+    dispatch(onGetEmployee(null));
+    setModalForm(!modalForm);
     setValues({
       name: "",
       lastname: "",
@@ -67,8 +67,6 @@ const ModalEmployeeForm = ({ modalForm, setModalForm }: Modal) => {
       password: "",
       type: "",
     });
-    setModalForm(!modalForm);
-    dispatch(onGetEmployee(null));
   };
 
   const handleChange = (
@@ -83,14 +81,7 @@ const ModalEmployeeForm = ({ modalForm, setModalForm }: Modal) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    let data;
-    if (employee?.id_employee) {
-      data = await startEditEmployee(values);
-      await startLoadingEmployees(1, 1);
-    } else {
-      data = await startNewEmployee(values);
-      if (data === undefined) return;
-    }
+    await Promise.all([startEditEmployee(values), startLoadingEmployees(1, 1)]);
 
     setValues({
       name: "",
@@ -279,4 +270,4 @@ const ModalEmployeeForm = ({ modalForm, setModalForm }: Modal) => {
   );
 };
 
-export { ModalEmployeeForm };
+export { ModalEditEmployee };

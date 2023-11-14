@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { useAppSelector } from "../../store/store";
 import { IoAdd } from "react-icons/io5";
 import { VehicleInterface } from "../../interfaces";
-import { ModalVehicleForm, Pagination, Vehicle } from "../../components";
+import { Pagination } from "../../components/";
 import { useVehicle } from "../../hooks/useVehicle";
 import { usePagination } from "../../hooks/usePagination";
+import { Vehicle, ModalNewVehicle } from "../../components/Vehicle";
 
 const Vehicles = () => {
   const [modalForm, setModalForm] = useState(false);
@@ -35,7 +36,7 @@ const Vehicles = () => {
         >
           <IoAdd />
         </button>
-        <ModalVehicleForm modalForm={modalForm} setModalForm={setModalForm} />
+        <ModalNewVehicle modalForm={modalForm} setModalForm={setModalForm} />
         <p className="w-full text-xl">Vehicles List</p>
       </div>
       <div className="bg-gray-50 shadow-sm rounded-md mt-5">

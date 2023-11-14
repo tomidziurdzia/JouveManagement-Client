@@ -1,41 +1,26 @@
 import { Dispatch, Fragment, SetStateAction, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { useEmployee } from "../hooks/useEmployee";
-import {
-  EmployeeInterface,
-  ErrorInterface,
-  VehicleInterface,
-} from "../interfaces";
-import { Alert } from ".";
-import { useAppSelector } from "../store/store";
-import { useVehicle } from "../hooks/useVehicle";
+import { ErrorInterface, VehicleInterface } from "../../interfaces";
+import { Alert } from "..";
+import { useAppDispatch, useAppSelector } from "../../store/store";
+import { useVehicle } from "../../hooks/useVehicle";
+import { onErrorMessageVehicle } from "../../store";
 
 interface Props {
   modalDelete: boolean;
   setModalDelete: Dispatch<SetStateAction<boolean>>;
-  employee?: EmployeeInterface;
-  vehicle?: VehicleInterface;
+  vehicle: VehicleInterface;
 }
 
-const ModalDelete: React.FC<Props> = ({
+const ModalDeleteVehicle: React.FC<Props> = ({
   modalDelete,
   setModalDelete,
-  employee,
   vehicle,
 }) => {
-  const { startDeleteEmployee } = useEmployee();
+  const dispatch = useAppDispatch();
+
   const { startDeleteVehicle } = useVehicle();
-  const { errorMessage } = useAppSelector((state) => state.employee);
-
-  const handleClose = () => {
-    setAlert({
-      msg: "",
-      error: undefined,
-    });
-    setModalDelete(!modalDelete);
-  };
-
-  //TODO: ME FALTA AGREGAR QUE SI TIENE VIAJES NO PUEDE SER ELIMINADO
+  const { errorMessage } = useAppSelector((state) => state.vehicle);
 
   const [alert, setAlert] = useState<ErrorInterface>({
     msg: "",
@@ -51,12 +36,17 @@ const ModalDelete: React.FC<Props> = ({
     }
   }, [errorMessage]);
 
+  const handleClose = () => {
+    setAlert({
+      msg: "",
+      error: undefined,
+    });
+    dispatch(onErrorMessageVehicle(null));
+    setModalDelete(!modalDelete);
+  };
+
   const handleSubmit = async () => {
-    if (employee) {
-      await startDeleteEmployee(employee!);
-    } else if (vehicle) {
-      await startDeleteVehicle(vehicle!);
-    }
+    await startDeleteVehicle(vehicle!);
   };
 
   const { msg, error } = alert;
@@ -140,11 +130,11 @@ const ModalDelete: React.FC<Props> = ({
                     as="h3"
                     className="text-lg leading-6 font-bold text-gray-900"
                   >
-                    Delete employee
+                    Delete vehicle
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
-                      A deleted employee cannot be restored
+                      A deleted vehicle cannot be restored
                     </p>
                   </div>
                 </div>
@@ -176,4 +166,4 @@ const ModalDelete: React.FC<Props> = ({
   );
 };
 
-export { ModalDelete };
+export { ModalDeleteVehicle };

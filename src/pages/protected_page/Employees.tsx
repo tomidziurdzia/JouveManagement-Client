@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { IoAdd } from "react-icons/io5";
 import { EmployeeInterface } from "../../interfaces";
-import { ModalEmployeeForm, Employee, Pagination } from "../../components";
+import { Pagination } from "../../components";
+
 import { useAppSelector } from "../../store/store";
 import { useEmployee } from "../../hooks/useEmployee";
 import { usePagination } from "../../hooks/usePagination";
+import { Employee, ModalNewEmployee } from "../../components/Employee/";
 
 const Employees = () => {
   const [modalForm, setModalForm] = useState(false);
@@ -35,7 +37,7 @@ const Employees = () => {
         >
           <IoAdd />
         </button>
-        <ModalEmployeeForm modalForm={modalForm} setModalForm={setModalForm} />
+        <ModalNewEmployee modalForm={modalForm} setModalForm={setModalForm} />
         <p className="w-full text-xl">Employeers List</p>
       </div>
       <div className="bg-gray-50 shadow-sm rounded-md mt-5">
