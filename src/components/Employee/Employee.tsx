@@ -11,8 +11,8 @@ interface Props {
 const Employee = ({ employee }: Props) => {
   const [modalForm, setModalForm] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
-
   const { startGetEmployee } = useEmployee();
+
   const handleClickEdit = async () => {
     await startGetEmployee(employee);
     setModalForm(!modalForm);

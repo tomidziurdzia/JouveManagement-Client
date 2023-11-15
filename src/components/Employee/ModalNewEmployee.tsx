@@ -67,9 +67,7 @@ const ModalNewEmployee = ({ modalForm, setModalForm }: Modal) => {
     e.preventDefault();
 
     const data = await startNewEmployee(values);
-    if (data === undefined) {
-      return;
-    }
+    if (data === undefined) return;
     setValues({
       name: "",
       lastname: "",
@@ -153,7 +151,7 @@ const ModalNewEmployee = ({ modalForm, setModalForm }: Modal) => {
                     as="h3"
                     className="text-xl leading-6 font-boldtext-center font-bold text-center"
                   >
-                    {employee?.id_employee ? "Edit Employee" : "New Employee"}
+                    New Employee
                   </Dialog.Title>
                   <form onSubmit={handleSubmit} className="my-10" action="">
                     <div className="mb-5">

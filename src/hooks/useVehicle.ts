@@ -39,6 +39,7 @@ export const useVehicle = () => {
     try {
       const { data } = await clientAxios(`/vehicle/${vehicle.id_vehicle}`);
       dispatch(onGetVehicle(data));
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       dispatch(
