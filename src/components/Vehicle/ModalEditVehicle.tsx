@@ -74,7 +74,10 @@ const ModalEditVehicle = ({ vehicle, modalForm, setModalForm }: Modal) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    await Promise.all([startEditVehicle(values), startLoadingVehicles(1, 1)]);
+    await Promise.all([
+      startEditVehicle(values),
+      startLoadingVehicles(1, 1000),
+    ]);
 
     setValues({
       patent: "",
@@ -86,6 +89,7 @@ const ModalEditVehicle = ({ vehicle, modalForm, setModalForm }: Modal) => {
       msg: "",
       error: undefined,
     });
+    dispatch(onGetVehicle(null));
   };
 
   const { msg, error } = alert;

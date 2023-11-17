@@ -19,8 +19,6 @@ interface Modal {
   setModalForm: Dispatch<SetStateAction<boolean>>;
 }
 
-//TODO: ME FALTAN MUCHAS VALIDACIONES. LO DE TRACTOR Y SEMI. QUE NO SE PUEDAN CREAR MAS DE UN VIAJE CON EL MISMO CHOFER Y CAMION Y FECHA Y MAS COSAS PERO YA SE CREAN LOS VAIJES Y SE MUESTRAN
-
 const ModalNewTravel = ({ modalForm, setModalForm }: Modal) => {
   const dispatch = useAppDispatch();
   const { errorMessage } = useAppSelector((state) => state.travel);
@@ -35,7 +33,9 @@ const ModalNewTravel = ({ modalForm, setModalForm }: Modal) => {
   );
 
   const vehicle = vehicles.filter(
-    (vehicle) => vehicle.typeVehicle !== "semirremolque".toLowerCase()
+    (vehicle) =>
+      vehicle.typeVehicle.toLowerCase() !== "semirremolque" &&
+      vehicle.id_vehicle !== "not_semirremolque"
   );
 
   const semirremolque = vehicles.filter(
@@ -88,6 +88,7 @@ const ModalNewTravel = ({ modalForm, setModalForm }: Modal) => {
         typeVehicle: "",
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.truck]);
 
   useEffect(() => {
@@ -102,6 +103,7 @@ const ModalNewTravel = ({ modalForm, setModalForm }: Modal) => {
   useEffect(() => {
     startLoadingEmployees(1, 100);
     startLoadingVehicles(1, 100);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleClick = () => {
@@ -117,6 +119,7 @@ const ModalNewTravel = ({ modalForm, setModalForm }: Modal) => {
         cuil: "",
         password: "",
         type: "",
+        id_employee: "",
       },
       truck_assistant: {
         name: "",
@@ -124,16 +127,19 @@ const ModalNewTravel = ({ modalForm, setModalForm }: Modal) => {
         cuil: "",
         password: "",
         type: "",
+        id_employee: "",
       },
       truck: {
         patent: "",
         model: "",
         typeVehicle: "",
+        id_vehicle: "",
       },
       semi: {
         patent: "",
         model: "",
         typeVehicle: "",
+        id_vehicle: "",
       },
     });
     dispatch(onGetTravel(null));
@@ -187,6 +193,7 @@ const ModalNewTravel = ({ modalForm, setModalForm }: Modal) => {
       msg: "",
       error: undefined,
     });
+
     setModalForm(!modalForm);
     dispatch(onGetVehicle(null));
   };

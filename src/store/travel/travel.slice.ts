@@ -33,7 +33,7 @@ export const travelSlice = createSlice({
     },
     onUpdateTravel: (state, { payload }) => {
       state.travels = state.travels.map((travel) => {
-        if (travel.id_travel === payload._id) {
+        if (travel.id_travel === payload) {
           return payload;
         }
         return travel;

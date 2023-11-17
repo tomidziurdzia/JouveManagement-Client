@@ -10,9 +10,7 @@ import { Pagination } from "../../components";
 const Travels = () => {
   const [modalForm, setModalForm] = useState(false);
   const { startLoadingTravels } = useTravel();
-  const { travels } = useAppSelector((state) => state.travel);
-
-  console.log(travels);
+  const { travels, travel } = useAppSelector((state) => state.travel);
 
   const {
     page,
@@ -24,7 +22,7 @@ const Travels = () => {
 
   useEffect(() => {
     startLoadingTravels(page, itemsPerPage);
-  }, [travels.length, page]);
+  }, [travels.length, travel, page]);
 
   const handleClick = () => {
     setModalForm(!modalForm);

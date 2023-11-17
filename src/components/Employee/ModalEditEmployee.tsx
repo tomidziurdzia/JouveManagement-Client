@@ -81,7 +81,10 @@ const ModalEditEmployee = ({ employee, modalForm, setModalForm }: Modal) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    await Promise.all([startEditEmployee(values), startLoadingEmployees(1, 1)]);
+    await Promise.all([
+      startEditEmployee(values),
+      startLoadingEmployees(1, 1000),
+    ]);
 
     setValues({
       name: "",

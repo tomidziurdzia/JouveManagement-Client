@@ -33,7 +33,7 @@ export const employeeSlice = createSlice({
     },
     onUpdateEmployee: (state, { payload }) => {
       state.employees = state.employees.map((employe) => {
-        if (employe.id_employee === payload.id) {
+        if (employe.id_employee === payload) {
           return payload;
         }
         return employe;

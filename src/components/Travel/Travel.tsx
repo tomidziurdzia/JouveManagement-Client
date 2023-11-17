@@ -12,7 +12,6 @@ const Travel = ({ travel }: Props) => {
   const [modalDelete, setModalDelete] = useState(false);
   const { startGetTravel } = useTravel();
 
-  console.log(travel);
   const handleClickEdit = async () => {
     await startGetTravel(travel);
     setModalForm(!modalForm);
@@ -31,11 +30,16 @@ const Travel = ({ travel }: Props) => {
         </p>
       </div>
       <p className="w-3/12 capitalize">
-        {travel.truck_assistant?.lastname} {travel.truck_assistant?.name}
+        {travel.truck_assistant?.lastname !== "-"
+          ? travel.truck_assistant?.lastname + travel.truck_assistant?.name
+          : "-"}
       </p>
       <div className="w-2/12">
         <p className="m-auto capitalize">
-          {travel.truck.model} {travel.semi.model}
+          {travel.truck?.patent +
+            (travel.semi?.model === "-" || travel.semi === null
+              ? ""
+              : travel.semi?.patent)}
         </p>
       </div>
       <div className="w-3/12 flex justify-center text-white gap-4">
@@ -55,7 +59,11 @@ const Travel = ({ travel }: Props) => {
           Delete
         </button>
       </div>
-      <ModalEditTravel modalForm={modalForm} setModalForm={setModalForm} />
+      <ModalEditTravel
+        travel={travel}
+        modalForm={modalForm}
+        setModalForm={setModalForm}
+      />
       <ModalDeleteTravel
         modalDelete={modalDelete}
         setModalDelete={setModalDelete}

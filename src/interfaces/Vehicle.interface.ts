@@ -7,6 +7,8 @@ export interface VehicleInterface {
     | "balancin truck"
     | "semirremolque"
     | "tractor"
+    | "-"
     | "";
+
   picture?: string;
 }
