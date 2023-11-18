@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 .spinner {
   width: 40px;
   height: 40px;
@@ -54,4 +61,10 @@
 
 .active {
   @apply bg-primary text-white rounded shadow;
+}
+
+.min {
+  min-height: calc(100vh - 8rem); /* Ajusta el margen según tus necesidades */
+  margin: 10px; /* Puedes ajustar el margen aquí también */
+  box-sizing: border-box;
 }

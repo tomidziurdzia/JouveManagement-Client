@@ -31,7 +31,9 @@ const Travel = ({ travel }: Props) => {
       </div>
       <p className="w-3/12 capitalize">
         {travel.truck_assistant?.lastname !== "-"
-          ? travel.truck_assistant?.lastname + travel.truck_assistant?.name
+          ? travel.truck_assistant?.lastname +
+            " " +
+            travel.truck_assistant?.name
           : "-"}
       </p>
       <div className="w-2/12">

@@ -15,7 +15,6 @@ export const useTravel = () => {
 
   const startNewTravel = async (travel: TravelInterface) => {
     const { date, semi, truck, truck_assistant, truck_driver } = travel;
-    console.log(travel);
     const newTravel = {
       date,
       truck,

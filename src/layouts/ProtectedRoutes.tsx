@@ -3,7 +3,7 @@ import { Header, Sidebar } from "../components";
 
 const ProtectedRoutes = () => {
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white">
       <Header />
       <div className="flex">
         <div className="w-2/12">

@@ -20,7 +20,7 @@ const Travels = () => {
   } = usePagination();
 
   useEffect(() => {
-    startLoadingTravels(page, itemsPerPage);
+    startLoadingTravels(page, itemsPerPage * 1.2);
   }, [travels.length, travel, page]);
 
   const handleClick = () => {
