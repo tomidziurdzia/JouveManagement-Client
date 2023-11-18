@@ -39,7 +39,7 @@ const Travel = ({ travel }: Props) => {
           {travel.truck?.patent +
             (travel.semi?.model === "-" || travel.semi === null
               ? ""
-              : travel.semi?.patent)}
+              : "   -   " + travel.semi?.patent)}
         </p>
       </div>
       <div className="w-3/12 flex justify-center text-white gap-4">

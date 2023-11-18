@@ -11,7 +11,13 @@ import { Employee, ModalNewEmployee } from "../../components/Employee/";
 const Employees = () => {
   const [modalForm, setModalForm] = useState(false);
   const { startLoadingEmployees } = useEmployee();
-  const { employees } = useAppSelector((state) => state.employee);
+  const { employees: employeesFilter } = useAppSelector(
+    (state) => state.employee
+  );
+
+  const employees = employeesFilter.filter(
+    (employee) => employee.id_employee !== "empty-assistant"
+  );
   const {
     page,
     handlePrev,

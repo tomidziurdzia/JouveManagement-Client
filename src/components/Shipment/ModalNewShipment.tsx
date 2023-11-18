@@ -1,30 +1,35 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Dispatch, Fragment, SetStateAction, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/store";
-import { useVehicle } from "../../hooks/useVehicle";
-import { VehicleInterface, ErrorInterface } from "../../interfaces";
-import { onGetVehicle } from "../../store";
+import { useTravel } from "../../hooks/useTravel";
+import { useShipment } from "../../hooks/useShipment";
+import { ErrorInterface, ShipmentInterface } from "../../interfaces";
 import { Alert } from "..";
+import { onGetTravel, onGetVehicle } from "../../store";
 
 interface Modal {
   modalForm: boolean;
   setModalForm: Dispatch<SetStateAction<boolean>>;
 }
 
-const ModalNewVehicle = ({ modalForm, setModalForm }: Modal) => {
+const ModalNewShipment = ({ modalForm, setModalForm }: Modal) => {
   const dispatch = useAppDispatch();
-  const { errorMessage, vehicle } = useAppSelector((state) => state.vehicle);
-  const { startNewVehicle } = useVehicle();
-
+  const { errorMessage } = useAppSelector((state) => state.shipment);
+  const { travels } = useAppSelector((state) => state.travel);
+  const { startNewShipment } = useShipment();
+  const { startLoadingTravels } = useTravel();
   const [alert, setAlert] = useState<ErrorInterface>({
     msg: "",
     error: false,
   });
 
-  const [values, setValues] = useState<VehicleInterface>({
-    patent: "",
-    model: "",
-    typeVehicle: "",
+  const [values, setValues] = useState<ShipmentInterface>({
+    id_travel: "",
+    from: "",
+    to: "",
+    client: "",
+    description: "",
+    delivered: false,
   });
 
   useEffect(() => {
@@ -36,22 +41,33 @@ const ModalNewVehicle = ({ modalForm, setModalForm }: Modal) => {
     }
   }, [errorMessage]);
 
+  useEffect(() => {
+    startLoadingTravels(1, 100);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [modalForm]);
+
   const handleClick = () => {
     setAlert({
       msg: "",
       error: undefined,
     });
     setValues({
-      patent: "",
-      model: "",
-      typeVehicle: "",
+      id_travel: "",
+      from: "",
+      to: "",
+      client: "",
+      description: "",
+      delivered: false,
     });
+    dispatch(onGetTravel(null));
     dispatch(onGetVehicle(null));
     setModalForm(!modalForm);
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
   ) => {
     setValues({
       ...values,
@@ -62,19 +78,22 @@ const ModalNewVehicle = ({ modalForm, setModalForm }: Modal) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const data = await startNewVehicle(values);
+    const data = await startNewShipment(values);
     if (data === undefined) return;
 
     setValues({
-      patent: "",
-      model: "",
-      typeVehicle: "",
+      id_travel: "",
+      from: "",
+      to: "",
+      client: "",
+      description: "",
+      delivered: false,
     });
-    setModalForm(!modalForm);
     setAlert({
       msg: "",
       error: undefined,
     });
+    setModalForm(!modalForm);
   };
 
   const { msg, error } = alert;
@@ -145,67 +164,107 @@ const ModalNewVehicle = ({ modalForm, setModalForm }: Modal) => {
                     as="h3"
                     className="text-xl leading-6 font-boldtext-center font-bold text-center"
                   >
-                    {vehicle?.id_vehicle ? "Edit Vehicle" : "New Vehicle"}
+                    New Shipment
                   </Dialog.Title>
                   <form onSubmit={handleSubmit} className="my-10" action="">
                     <div className="mb-5">
-                      <label htmlFor="patent" className="font-bold text-m">
-                        Patent
+                      <label htmlFor="id_travel" className="font-bold text-m">
+                        Travel
                       </label>
-                      <input
-                        disabled={vehicle?.id_vehicle ? true : false}
-                        id="patent"
-                        type="text"
-                        className="border w-full mt-2 placeholder-gray-400 rounded-md p-2"
-                        placeholder="AB213CD"
-                        name="patent"
-                        value={values.patent}
+                      <select
+                        name="id_travel"
+                        id="id_travel"
+                        value={values.id_travel?.toString()}
                         onChange={handleChange}
-                      />
+                        className="border w-full mt-2 placeholder-gray-400 rounded-md p-2"
+                      >
+                        <option value="">-- Select --</option>
+                        {travels.map((travel) => (
+                          <option
+                            key={travel.id_travel}
+                            value={travel.id_travel}
+                          >
+                            {travel.date} - {travel.truck_driver?.name}{" "}
+                            {travel.truck_driver?.lastname}{" "}
+                            {travel.truck_assistant.id_employee ===
+                            "empty-assistant"
+                              ? ""
+                              : `- ${travel.truck_assistant?.name}
+                            ${travel.truck_assistant?.lastname} `}{" "}
+                            {" - " + travel.truck?.patent}
+                            {travel.semi.id_vehicle === "not_semirremolque"
+                              ? ""
+                              : `- ${travel.semi.patent}`}
+                          </option>
+                        ))}
+                      </select>
                     </div>
+
                     <div className="mb-5">
-                      <label htmlFor="model" className="font-bold text-m">
-                        Model
+                      <label htmlFor="from" className="font-bold text-m">
+                        From
                       </label>
                       <input
-                        id="model"
+                        id="from"
                         type="text"
                         className="border w-full mt-2 placeholder-gray-400 rounded-md p-2"
-                        placeholder="Mercedes Benz 1721"
-                        name="model"
-                        value={values.model}
+                        placeholder="Calle falsa 123"
+                        name="from"
+                        value={values.from}
                         onChange={handleChange}
                       />
                     </div>
 
                     <div className="mb-5">
-                      <label htmlFor="typeVehicle" className="font-bold text-m">
-                        Type Vehicle
+                      <label htmlFor="to" className="font-bold text-m">
+                        To
                       </label>
-                      <select
-                        name="typeVehicle"
-                        id="typeVehicle"
-                        value={values.typeVehicle}
-                        onChange={handleChange}
+                      <input
+                        id="to"
+                        type="text"
                         className="border w-full mt-2 placeholder-gray-400 rounded-md p-2"
-                      >
-                        <option value="" disabled>
-                          -- Select --
-                        </option>
-                        <option value="chasis truck">Chasis Truck</option>
-                        <option value="balancin truck">Balancin Truck</option>
-                        <option value="tractor">Tractor</option>
-                        <option value="semirremolque">Semirremolque</option>v
-                      </select>
+                        placeholder="Calle falsa 123"
+                        name="to"
+                        value={values.to}
+                        onChange={handleChange}
+                      />
+                    </div>
+
+                    <div className="mb-5">
+                      <label htmlFor="client" className="font-bold text-m">
+                        Client
+                      </label>
+                      <input
+                        id="client"
+                        type="text"
+                        className="border w-full mt-2 placeholder-gray-400 rounded-md p-2"
+                        placeholder="Lacteos Conosur"
+                        name="client"
+                        value={values.client}
+                        onChange={handleChange}
+                      />
+                    </div>
+
+                    <div className="mb-5">
+                      <label htmlFor="description" className="font-bold text-m">
+                        Description
+                      </label>
+                      <textarea
+                        id="description"
+                        className="border w-full mt-2 placeholder-gray-400 rounded-md p-2"
+                        placeholder="12 Pallets de leche descremada"
+                        name="description"
+                        value={values.description}
+                        onChange={handleChange}
+                        rows={3}
+                      ></textarea>
                     </div>
 
                     {msg && <Alert msg={msg} error={error} />}
 
                     <input
                       type="submit"
-                      value={
-                        vehicle?.id_vehicle ? "Save Changes" : "Save Vehicle"
-                      }
+                      value="Save Shipment"
                       className="bg-primary text-center text-white py-2 w-full rounded hover:cursor-pointer hover:opacity-80 font-bold text-xl transition-colors"
                     />
                   </form>
@@ -219,4 +278,4 @@ const ModalNewVehicle = ({ modalForm, setModalForm }: Modal) => {
   );
 };
 
-export { ModalNewVehicle };
+export { ModalNewShipment };

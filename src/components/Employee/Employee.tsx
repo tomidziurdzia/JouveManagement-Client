@@ -30,8 +30,7 @@ const Employee = ({ employee }: Props) => {
       </div>
       <div className="w-5/12">
         <p className="w-2/3 m-auto capitalize">
-          {employee.lastname}
-          <br /> {employee.name}
+          {employee.lastname} {employee.name}
         </p>
       </div>
 

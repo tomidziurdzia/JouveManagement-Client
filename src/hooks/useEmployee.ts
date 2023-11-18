@@ -8,7 +8,6 @@ import {
   onDeleteEmployee,
   onErrorMessageEmployee,
 } from "../store";
-
 import { useAppDispatch } from "../store/store";
 
 export const useEmployee = () => {
@@ -41,7 +40,6 @@ export const useEmployee = () => {
     try {
       const { data } = await clientAxios(`/employee/${employee.id_employee}`);
       dispatch(onGetEmployee(data));
-
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       dispatch(
@@ -59,7 +57,6 @@ export const useEmployee = () => {
         `/employee/${employee?.id_employee}`,
         employee
       );
-
       dispatch(onUpdateEmployee(data));
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
@@ -90,11 +87,7 @@ export const useEmployee = () => {
 
   const startLoadingEmployees = async (page: number, size: number) => {
     try {
-      // const { data } = await clientAxios("/employee");
-      const { data } = await clientAxios.get(
-        `/employee?page=${page}&size=${size}`
-      );
-
+      const { data } = await clientAxios(`/employee?page=${page}&size=${size}`);
       dispatch(onGetEmployees(data));
     } catch (error) {
       console.log(error);

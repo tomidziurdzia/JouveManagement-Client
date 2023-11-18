@@ -8,4 +8,9 @@ export interface ShipmentInterface {
   delivered: boolean;
   reason?: string;
   picture?: string;
+  travel?: {
+    date: string;
+    truck: { patent: string };
+    truck_driver: { name: string; lastname: string };
+  };
 }

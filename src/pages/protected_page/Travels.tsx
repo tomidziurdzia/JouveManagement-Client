@@ -11,7 +11,6 @@ const Travels = () => {
   const [modalForm, setModalForm] = useState(false);
   const { startLoadingTravels } = useTravel();
   const { travels, travel } = useAppSelector((state) => state.travel);
-
   const {
     page,
     handlePrev,

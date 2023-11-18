@@ -10,7 +10,12 @@ import { Vehicle, ModalNewVehicle } from "../../components/Vehicle";
 const Vehicles = () => {
   const [modalForm, setModalForm] = useState(false);
   const { startLoadingVehicles } = useVehicle();
-  const { vehicles } = useAppSelector((state) => state.vehicle);
+  const { vehicles: vehiclesFilter } = useAppSelector((state) => state.vehicle);
+
+  const vehicles = vehiclesFilter.filter(
+    (vehicle) => vehicle.id_vehicle !== "not_semirremolque"
+  );
+
   const {
     page,
     handlePrev,
