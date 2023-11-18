@@ -2,6 +2,7 @@ import { useState } from "react";
 import { TravelInterface } from "../../interfaces";
 import { useTravel } from "../../hooks/useTravel";
 import { ModalDeleteTravel, ModalEditTravel } from ".";
+import { formatDate } from "../../helpers/formatDate";
 
 interface Props {
   travel: TravelInterface;
@@ -23,7 +24,7 @@ const Travel = ({ travel }: Props) => {
 
   return (
     <div className="flex px-4 py-2 items-center border-gray-100 border-b-2 text-lg">
-      <p className="w-1/12 text-center">{travel.date}</p>
+      <p className="w-1/12 text-center">{formatDate(travel.date)}</p>
       <div className="w-3/12">
         <p className="w-2/3 m-auto capitalize">
           {travel.truck_driver?.lastname} {travel.truck_driver?.name}

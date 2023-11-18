@@ -4,12 +4,12 @@ import { useAppSelector } from "./store/store";
 import { Spinner } from "./components";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { ProtectedRoutes, PublicRoutes } from "./layouts";
-import { Dashboard } from "./pages/public_pages";
 import {
   Employees,
   Shipments,
   Travels,
   Vehicles,
+  Dashboard,
 } from "./pages/protected_page";
 
 const App = () => {

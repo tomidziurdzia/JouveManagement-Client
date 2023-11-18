@@ -19,6 +19,8 @@ const Travels = () => {
     lastPageTravels: lastPage,
   } = usePagination();
 
+  console.log(travels);
+
   useEffect(() => {
     startLoadingTravels(page, itemsPerPage * 1.2);
   }, [travels.length, travel, page]);

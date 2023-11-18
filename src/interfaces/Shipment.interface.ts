@@ -9,6 +9,7 @@ export interface ShipmentInterface {
   reason?: string;
   picture?: string;
   travel?: {
+    id_travel: string;
     date: string;
     truck: { patent: string };
     truck_driver: { name: string; lastname: string };

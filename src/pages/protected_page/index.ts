@@ -3,3 +3,4 @@ export * from "./Vehicles";
 export * from "./Travels";
 export * from "./Vehicles";
 export * from "./Shipments";
+export * from "./Dashboard";
