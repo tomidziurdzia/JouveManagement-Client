@@ -5,7 +5,7 @@ export const usePagination = () => {
   const { total: totalEmployees } = useAppSelector((state) => state.employee);
   const { total: totalVehicles } = useAppSelector((state) => state.vehicle);
   const { total: totalTravels } = useAppSelector((state) => state.travel);
-
+  const { total: totalShipments } = useAppSelector((state) => state.shipment);
   const [page, setPage] = useState(1);
 
   const handlePrev = () => {
@@ -20,6 +20,7 @@ export const usePagination = () => {
   const lastPageEmployees = Math.ceil(totalEmployees / itemsPerPage);
   const lastPageVehicles = Math.ceil(totalVehicles / itemsPerPage);
   const lastPageTravels = Math.ceil(totalTravels / itemsPerPage);
+  const lastPageShipments = Math.ceil(totalShipments / itemsPerPage);
 
   return {
     setPage,
@@ -29,6 +30,7 @@ export const usePagination = () => {
     lastPageEmployees,
     lastPageVehicles,
     lastPageTravels,
+    lastPageShipments,
     itemsPerPage,
   };
 };

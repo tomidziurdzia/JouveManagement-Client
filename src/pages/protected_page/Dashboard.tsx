@@ -23,10 +23,10 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="p-4">
+      <div className="p-6">
         <div className="flex items-center gap-10">
           <p className="w-full text-2xl text-center">{getDate(filterDate)}</p>
-          <form action="">
+          <form className="mr-10">
             <input
               id="filterDate"
               name="filterDate"

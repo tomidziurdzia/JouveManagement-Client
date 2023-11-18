@@ -26,6 +26,7 @@ export const shipmentSlice = createSlice({
     onGetShipments: (state, { payload }) => {
       state.shipments = payload.shipments;
       state.errorMessage = undefined;
+      state.total = payload.total;
     },
     onNewShipment: (state, { payload }) => {
       state.shipments = [...state.shipments, payload];

@@ -15,13 +15,13 @@ const Shipments = () => {
     handlePrev,
     handleNext,
     itemsPerPage,
-    lastPageVehicles: lastPage,
+    lastPageShipments: lastPage,
   } = usePagination();
 
   useEffect(() => {
     startLoadingShipments(page, itemsPerPage);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [shipments.length, page, shipment]);
+  }, [shipments.length, shipment, page]);
 
   const handleClick = () => {
     setModalForm(!modalForm);

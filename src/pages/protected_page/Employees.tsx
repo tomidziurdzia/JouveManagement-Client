@@ -50,7 +50,7 @@ const Employees = () => {
         <div className="hidden lg:flex w-full text-center p-4 border-b-2 text-xl">
           <p className="w-1/12">Picture</p>
           <p className="w-5/12">Fullname</p>
-          <p className="w-2/12">Type</p>
+          <p className="w-3/12">Type</p>
           <p className="w-3/12">Actions</p>
         </div>
         <>

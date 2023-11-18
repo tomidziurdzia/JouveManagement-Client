@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ModalDeleteShipment, ModalEditShipment } from ".";
 import { useShipment } from "../../hooks/useShipment";
+import { formatDate } from "../../helpers/formatDate";
 
 interface Props {
   shipment: {
@@ -36,7 +37,7 @@ const Shipment = ({ shipment }: Props) => {
   };
   return (
     <div className="flex px-4 py-2 gap-4 text-center items-center border-gray-100 border-b-2 text-lg">
-      <p className="w-1/12">{shipment.travel?.date}</p>
+      <p className="w-1/12">{formatDate(shipment.travel?.date)}</p>
       <p className="w-2/12">
         {shipment.travel?.truck_driver?.lastname}{" "}
         {shipment.travel?.truck_driver?.name}
