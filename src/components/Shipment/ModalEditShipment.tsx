@@ -34,6 +34,7 @@ const ModalEditShipment = ({ modalForm, setModalForm, shipment }: Modal) => {
     description: "",
     delivered: false,
     travel: {
+      id_travel: "",
       date: "",
       truck: { patent: "" },
       truck_driver: { name: "", lastname: "" },
@@ -64,6 +65,7 @@ const ModalEditShipment = ({ modalForm, setModalForm, shipment }: Modal) => {
         description: shipment.description,
         delivered: false,
         travel: {
+          id_travel: "",
           date: shipment.travel?.date || "",
           truck: { patent: shipment.travel?.truck.patent || "" },
           truck_driver: {
@@ -121,6 +123,7 @@ const ModalEditShipment = ({ modalForm, setModalForm, shipment }: Modal) => {
       description: "",
       delivered: false,
       travel: {
+        id_travel: "",
         date: "",
         truck: { patent: "" },
         truck_driver: { name: "", lastname: "" },
@@ -201,7 +204,7 @@ const ModalEditShipment = ({ modalForm, setModalForm, shipment }: Modal) => {
                     as="h3"
                     className="text-xl leading-6 font-boldtext-center font-bold text-center"
                   >
-                    New Shipment
+                    Edit Shipment
                   </Dialog.Title>
                   <form onSubmit={handleSubmit} className="my-10" action="">
                     <div className="mb-5">

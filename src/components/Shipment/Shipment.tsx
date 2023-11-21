@@ -45,8 +45,8 @@ const Shipment = ({ shipment }: Props) => {
       <p className="w-1/12">{shipment.travel?.truck?.patent}</p>
       <p className="w-2/12">{shipment.from}</p>
       <p className="w-2/12">{shipment.to}</p>
-      <p className="w-3/12">{shipment.client}</p>
-      <div className="w-3/12 flex justify-center text-white gap-4">
+      <p className="w-2/12">{shipment.client}</p>
+      <div className="w-2/12 flex justify-center text-white gap-4">
         <button className="bg-green-300 hover:opacity-60 p-2 rounded-lg shadow-sm w-full">
           View
         </button>

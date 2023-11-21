@@ -42,7 +42,10 @@ const Dashboard = () => {
             {travelFilterByDate.length ? (
               travelFilterByDate.map((travel: TravelInterface) => {
                 return (
-                  <div className="mb-10 shadow-md rounded-lg bg-white">
+                  <div
+                    key={travel.id_travel}
+                    className="mb-10 shadow-md rounded-lg bg-white"
+                  >
                     <div className="hidden mb-2 lg:flex w-full text-center p-4 text-xl">
                       <div className="w-3/12">
                         <p className="w-2/3 m-auto  text-left">Driver</p>

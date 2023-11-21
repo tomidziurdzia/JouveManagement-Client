@@ -12,6 +12,7 @@ import {
   Dashboard,
 } from "./pages/protected_page";
 import { ViewEmployee } from "./components/Employee";
+import { ViewVehicle } from "./components/Vehicle";
 
 const App = () => {
   const { status } = useAppSelector((state) => state.auth);
@@ -41,6 +42,7 @@ const App = () => {
               <Route path="/employees" element={<Employees />} />
               <Route path="employees/:id" element={<ViewEmployee />} />
               <Route path="/vehicles" element={<Vehicles />} />
+              <Route path="/vehicles/:id" element={<ViewVehicle />} />
               <Route path="/travels" element={<Travels />} />
               <Route path="/shipments" element={<Shipments />} />
             </Route>

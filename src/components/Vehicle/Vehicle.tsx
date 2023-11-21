@@ -3,6 +3,7 @@ import { VehicleInterface } from "../../interfaces";
 import { useVehicle } from "../../hooks/useVehicle";
 import { IoCarOutline } from "react-icons/io5";
 import { ModalDeleteVehicle, ModalEditVehicle } from ".";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   vehicle: VehicleInterface;
@@ -11,6 +12,7 @@ interface Props {
 const Vehicle = ({ vehicle }: Props) => {
   const [modalForm, setModalForm] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
+  const navigate = useNavigate();
 
   const { startGetVehicle } = useVehicle();
   const handleClickEdit = async () => {
@@ -21,6 +23,12 @@ const Vehicle = ({ vehicle }: Props) => {
   const handleClickDelete = () => {
     setModalDelete(!modalDelete);
   };
+
+  const handleClickView = async () => {
+    await startGetVehicle(vehicle);
+    navigate(`/vehicles/${vehicle.id_vehicle}`);
+  };
+
   return (
     <div className="flex px-4 py-2 items-center border-gray-100 border-b-2 text-lg">
       <div className="w-2/12">
@@ -35,7 +43,10 @@ const Vehicle = ({ vehicle }: Props) => {
         <p className="m-auto capitalize">{vehicle.typeVehicle}</p>
       </div>
       <div className="w-3/12 flex justify-center text-white gap-4">
-        <button className="bg-green-300 hover:opacity-60 p-2 rounded-lg shadow-sm w-full">
+        <button
+          onClick={handleClickView}
+          className="bg-green-300 hover:opacity-60 p-2 rounded-lg shadow-sm w-full"
+        >
           View
         </button>
         <button

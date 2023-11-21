@@ -45,8 +45,8 @@ const Shipments = () => {
           <p className="w-1/12">Vehicle</p>
           <p className="w-2/12">From</p>
           <p className="w-2/12">To</p>
-          <p className="w-3/12">Client</p>
-          <p className="w-1/12">Action</p>
+          <p className="w-2/12">Client</p>
+          <p className="w-2/12 text-center">Action</p>
         </div>
         <>
           {shipments.length ? (
