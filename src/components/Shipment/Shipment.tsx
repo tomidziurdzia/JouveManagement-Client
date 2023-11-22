@@ -32,6 +32,15 @@ const Shipment = ({ shipment }: Props) => {
 
   return (
     <div className="flex px-4 py-2 gap-4 text-center items-center border-gray-100 border-b-2 text-lg">
+      <p
+        className={`${
+          shipment.delivered === false
+            ? "bg-red-200 text-red-200"
+            : "bg-green-200 text-green-200"
+        } w-8 rounded-full`}
+      >
+        a
+      </p>
       <p className="w-1/12">{formatDate(shipment.travel?.date as string)}</p>
       <p className="w-2/12">
         {shipment.travel?.truck_driver?.lastname}{" "}
