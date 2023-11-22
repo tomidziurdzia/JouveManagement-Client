@@ -47,11 +47,11 @@ const Employees = () => {
         <p className="w-full text-xl">Employeers List</p>
       </div>
       <div className="bg-gray-50 shadow-sm rounded-md mt-5">
-        <div className="hidden lg:flex w-full text-center p-4 border-b-2 text-xl">
-          <p className="w-1/12">Picture</p>
+        <div className="hidden lg:flex w-full p-4 border-b-2 text-xl">
+          {/* <p className="w-1/12">Picture</p> */}
           <p className="w-5/12">Fullname</p>
           <p className="w-3/12">Type</p>
-          <p className="w-3/12">Actions</p>
+          <p className="w-4/12 text-center">Actions</p>
         </div>
         <>
           {employees.length ? (

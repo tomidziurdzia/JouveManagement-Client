@@ -46,11 +46,11 @@ const Vehicles = () => {
       </div>
       <div className="bg-gray-50 shadow-sm rounded-md mt-5">
         <div className="hidden lg:flex w-full text-center p-4 border-b-2 text-xl">
-          <p className="w-2/12">Picture</p>
+          {/* <p className="w-2/12">Picture</p> */}
           <p className="w-2/12 text-left">Patent</p>
-          <p className="w-3/12 text-left">Model</p>
+          <p className="w-4/12 text-left">Model</p>
           <p className="w-2/12 text-left">Type</p>
-          <p className="w-3/12">Actions</p>
+          <p className="w-4/12">Actions</p>
         </div>
         <>
           {vehicles.length ? (
