@@ -27,7 +27,7 @@ const ViewVehicle = () => {
   }, []);
 
   const filterTravels = travels.filter(
-    (travel) => travel.truck.id_vehicle === id
+    (travel) => travel.truck?.id_vehicle === id
   );
 
   const searchMonth = month.filter((month) => month.month === selectMonth);
@@ -44,7 +44,7 @@ const ViewVehicle = () => {
         <div className="flex">
           <Link
             className="bg-primary mr-4 text-white text-3xl p-1 flex rounded-full hover:opacity-80 hover:transition-colors"
-            to={"/employees"}
+            to={"/vehicles"}
           >
             <IoChevronBack />
           </Link>
@@ -81,20 +81,20 @@ const ViewVehicle = () => {
                 <div className="flex w-full text-center p-4 border-b-2 text-xl">
                   <p className="w-2/12">{formatDate(travel.date)}</p>
                   <p className="w-4/12">
-                    {travel.truck_driver.lastname} {travel.truck_driver.name}
+                    {travel.truck_driver?.lastname} {travel.truck_driver?.name}
                   </p>
 
                   <p className="w-3/12">
-                    {travel.truck_assistant.lastname === "-"
+                    {travel.truck_assistant?.lastname === "-"
                       ? ""
-                      : travel.truck_assistant.lastname}{" "}
-                    {travel.truck_assistant.name === ""
+                      : travel.truck_assistant?.lastname}{" "}
+                    {travel.truck_assistant?.name === ""
                       ? ""
-                      : travel.truck_assistant.name}
+                      : travel.truck_assistant?.name}
                   </p>
                   <p className="w-3/12">
-                    {travel.semi.patent === "-" ? "" : travel.semi.patent}{" "}
-                    {travel.semi.model === "" ? "" : travel.semi.model}
+                    {travel.semi?.patent === "-" ? "" : travel.semi?.patent}{" "}
+                    {travel.semi?.model === "" ? "" : travel.semi?.model}
                   </p>
                 </div>
               </div>
@@ -106,7 +106,7 @@ const ViewVehicle = () => {
           </p>
         )}
       </div>
-      <div className="p-4 text-2xl">Total de viajes: {filterMonth.length}</div>
+      <div className="p-4 text-2xl">Total travels: {filterMonth.length}</div>
     </div>
   );
 };

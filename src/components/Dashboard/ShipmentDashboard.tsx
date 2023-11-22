@@ -15,8 +15,6 @@ const ShipmentDashboard = ({ shipment }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(delivered);
-
   const handleClick = async () => {
     await startEditShipment({
       id_shipment: shipment.id_shipment,

@@ -28,6 +28,7 @@ const Employee = ({ employee }: Props) => {
     await startGetEmployee(employee);
     navigate(`/employees/${employee.id_employee}`);
   };
+
   return (
     <div className="flex px-4 py-2 items-center border-gray-100 border-b-2 text-lg">
       <div className="w-1/12">

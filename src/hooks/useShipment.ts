@@ -53,12 +53,10 @@ export const useShipment = () => {
 
   const startEditShipment = async (shipment: ShipmentInterface) => {
     try {
-      console.log(shipment);
       const { data } = await clientAxios.put(
         `/shipment/${shipment.id_shipment}`,
         shipment
       );
-      console.log(data);
       dispatch(onUpdateShipment(data));
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {

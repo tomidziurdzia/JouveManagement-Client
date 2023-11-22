@@ -1,4 +1,4 @@
-export const formatDate = (date: Date | string) => {
+export const formatDate = (date: Date | string | Date) => {
   const nuevaFecha = new Date(date);
 
   const options: Intl.DateTimeFormatOptions = {

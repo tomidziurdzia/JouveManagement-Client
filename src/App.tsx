@@ -13,6 +13,8 @@ import {
 } from "./pages/protected_page";
 import { ViewEmployee } from "./components/Employee";
 import { ViewVehicle } from "./components/Vehicle";
+import { ViewTravel } from "./components/Travel";
+import { ViewShipment } from "./components/Shipment";
 
 const App = () => {
   const { status } = useAppSelector((state) => state.auth);
@@ -44,7 +46,9 @@ const App = () => {
               <Route path="/vehicles" element={<Vehicles />} />
               <Route path="/vehicles/:id" element={<ViewVehicle />} />
               <Route path="/travels" element={<Travels />} />
+              <Route path="/travels/:id" element={<ViewTravel />} />
               <Route path="/shipments" element={<Shipments />} />
+              <Route path="/shipments/:id" element={<ViewShipment />} />
             </Route>
           </>
         )}

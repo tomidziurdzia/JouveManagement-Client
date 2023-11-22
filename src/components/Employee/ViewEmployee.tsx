@@ -29,11 +29,10 @@ const ViewEmployee = () => {
   }, []);
 
   const filterTravels = travels.filter(
-    (travel) => travel.truck_driver.id_employee === id
+    (travel) => travel.truck_driver?.id_employee === id
   );
 
   const searchMonth = month.filter((month) => month.month === selectMonth);
-  console.log(searchMonth[0].id);
 
   const filterMonth = filterTravels.filter(
     (travel) => new Date(travel.date).getMonth() + 1 === searchMonth[0].id
@@ -78,20 +77,20 @@ const ViewEmployee = () => {
         {filterMonth.length ? (
           <div>
             {filterMonth.map((travel) => (
-              <div className="flex items-center">
+              <div key={travel.id_travel} className="flex items-center">
                 <div className="flex w-full text-center p-4 border-b-2 text-xl">
                   <p className="w-2/12">{formatDate(travel.date)}</p>
                   <p className="w-4/12">
-                    {travel.truck.patent} - {travel.truck.model}
+                    {travel.truck?.patent} - {travel.truck?.model}
                   </p>
 
                   <p className="w-3/12">
-                    {travel.truck_assistant.name}{" "}
-                    {travel.truck_assistant.lastname}
+                    {travel.truck_assistant?.name}{" "}
+                    {travel.truck_assistant?.lastname}
                   </p>
                   <p className="w-3/12">
-                    {travel.semi.patent === "-" ? "-" : travel.semi.patent}{" "}
-                    {travel.semi.model === "-" ? "" : travel.semi.model}
+                    {travel.semi?.patent === "-" ? "-" : travel.semi?.patent}{" "}
+                    {travel.semi?.model === "-" ? "" : travel.semi?.model}
                   </p>
                 </div>
               </div>
@@ -103,7 +102,7 @@ const ViewEmployee = () => {
           </p>
         )}
       </div>
-      <div className="p-4 text-2xl">Total de viajes: {filterMonth.length}</div>
+      <div className="p-4 text-2xl">Total travels: {filterMonth.length}</div>
     </div>
   );
 };

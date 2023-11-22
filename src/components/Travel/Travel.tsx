@@ -3,6 +3,7 @@ import { TravelInterface } from "../../interfaces";
 import { useTravel } from "../../hooks/useTravel";
 import { ModalDeleteTravel, ModalEditTravel } from ".";
 import { formatDate } from "../../helpers/formatDate";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   travel: TravelInterface;
@@ -12,6 +13,7 @@ const Travel = ({ travel }: Props) => {
   const [modalForm, setModalForm] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
   const { startGetTravel } = useTravel();
+  const navigate = useNavigate();
 
   const handleClickEdit = async () => {
     await startGetTravel(travel);
@@ -20,6 +22,11 @@ const Travel = ({ travel }: Props) => {
 
   const handleClickDelete = () => {
     setModalDelete(!modalDelete);
+  };
+
+  const handleClickView = async () => {
+    await startGetTravel(travel);
+    navigate(`/travels/${travel.id_travel}`);
   };
 
   return (
@@ -46,7 +53,10 @@ const Travel = ({ travel }: Props) => {
         </p>
       </div>
       <div className="w-3/12 flex justify-center text-white gap-4">
-        <button className="bg-green-300 hover:opacity-60 p-2 rounded-lg shadow-sm w-full">
+        <button
+          onClick={handleClickView}
+          className="bg-green-300 hover:opacity-60 p-2 rounded-lg shadow-sm w-full"
+        >
           View
         </button>
         <button
