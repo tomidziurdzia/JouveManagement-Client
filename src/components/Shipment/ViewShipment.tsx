@@ -52,26 +52,40 @@ const ViewShipment = () => {
         <div className="w-3/12"></div>
       </div>
       <div>
-        <div className="flex text-2xl item-center text-center p-4">
-          <p className="w-3/12">From</p>
-          <p className="w-3/12">To</p>
-          <p className="w-3/12">Client</p>
-          <p className="w-3/12">Delivered</p>
+        <div>
+          <div className="flex text-2xl item-center text-center p-4">
+            <p className="w-3/12">From</p>
+            <p className="w-3/12">To</p>
+            <p className="w-3/12">Client</p>
+            <p className="w-3/12">Delivered</p>
+          </div>
+          <div className="flex text-xl items-center text-center p-4">
+            <p className="w-3/12">{shipment?.from}</p>
+            <p className="w-3/12">{shipment?.to}</p>
+            <p className="w-3/12">{shipment?.client}</p>
+            <button
+              onClick={handleClick}
+              className={`${
+                shipment?.delivered === false
+                  ? "bg-red-200 hover:bg-red-300"
+                  : "bg-green-200 hover:bg-green-300"
+              }  transition-colors p-2 rounded-lg shadow-sm w-3/12`}
+            >
+              {shipment?.delivered === false ? "Not Delivered" : "Delivered"}
+            </button>
+          </div>
         </div>
-        <div className="flex text-xl items-center text-center p-4">
-          <p className="w-3/12">{shipment?.from}</p>
-          <p className="w-3/12">{shipment?.to}</p>
-          <p className="w-3/12">{shipment?.client}</p>
-          <button
-            onClick={handleClick}
-            className={`${
-              shipment?.delivered === false
-                ? "bg-red-200 hover:bg-red-300"
-                : "bg-green-200 hover:bg-green-300"
-            }  transition-colors p-2 rounded-lg shadow-sm w-3/12`}
-          >
-            {shipment?.delivered === false ? "Not Delivered" : "Delivered"}
-          </button>
+        <div>
+          <div className="flex text-2xl item-center text-center p-4">
+            <p className="w-3/12">Description</p>
+            <p className="w-3/12">Reason</p>
+            <p className="w-6/12">Picture</p>
+          </div>
+          <div className="flex text-xl items-center text-center p-4">
+            <p className="w-3/12">{shipment?.description}</p>
+            <p className="w-3/12">{shipment?.reason}</p>
+            <p className="w-6/12">{shipment?.picture}</p>
+          </div>
         </div>
       </div>
     </div>
