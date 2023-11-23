@@ -12,8 +12,6 @@ const ViewShipment = () => {
   const [delivered, setDelivered] = useState(shipment?.delivered);
   const { startEditShipment } = useShipment();
 
-  console.log(shipment);
-
   useEffect(() => {
     startGetShipment({
       id_shipment: id,

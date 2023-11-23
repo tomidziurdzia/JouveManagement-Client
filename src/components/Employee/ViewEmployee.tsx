@@ -32,9 +32,17 @@ const ViewEmployee = () => {
     (travel) => travel.truck_driver?.id_employee === id
   );
 
+  const filterTravelsAssistant = travels.filter(
+    (travel) => travel.truck_assistant?.id_employee === id
+  );
+
   const searchMonth = month.filter((month) => month.month === selectMonth);
 
   const filterMonth = filterTravels.filter(
+    (travel) => new Date(travel.date).getMonth() + 1 === searchMonth[0].id
+  );
+
+  const filterMonthAssistant = filterTravelsAssistant.filter(
     (travel) => new Date(travel.date).getMonth() + 1 === searchMonth[0].id
   );
 
@@ -67,42 +75,97 @@ const ViewEmployee = () => {
           </select>
         </div>
       </div>
-      <div className=" flex text-2xl item-center text-center py-4">
-        <p className="w-2/12">Date</p>
-        <p className="w-4/12">Truck</p>
-        <p className="w-3/12">Assistant</p>
-        <p className="w-3/12">Semirremolque</p>
-      </div>
-      <div>
-        {filterMonth.length ? (
-          <div>
-            {filterMonth.map((travel) => (
-              <div key={travel.id_travel} className="flex items-center">
-                <div className="flex w-full text-center p-4 border-b-2 text-xl">
-                  <p className="w-2/12">{formatDate(travel.date)}</p>
-                  <p className="w-4/12">
-                    {travel.truck?.patent} - {travel.truck?.model}
-                  </p>
-
-                  <p className="w-3/12">
-                    {travel.truck_assistant?.name}{" "}
-                    {travel.truck_assistant?.lastname}
-                  </p>
-                  <p className="w-3/12">
-                    {travel.semi?.patent === "-" ? "-" : travel.semi?.patent}{" "}
-                    {travel.semi?.model === "-" ? "" : travel.semi?.model}
-                  </p>
-                </div>
-              </div>
-            ))}
+      {filterTravels.length !== 0 && (
+        <>
+          <div className=" flex text-2xl item-center text-center py-4">
+            <p className="w-2/12">Date</p>
+            <p className="w-4/12">Truck</p>
+            <p className="w-3/12">Assistant</p>
+            <p className="w-3/12">Semirremolque</p>
           </div>
-        ) : (
-          <p className="text-center py-5 text-lg">
-            This employee has not yet travelled this month
-          </p>
-        )}
+
+          <div>
+            {filterMonth.length ? (
+              <div>
+                {filterMonth.map((travel) => (
+                  <div key={travel.id_travel} className="flex items-center">
+                    <div className="flex w-full text-center p-4 border-b-2 text-xl">
+                      <p className="w-2/12">{formatDate(travel.date)}</p>
+                      <p className="w-4/12">
+                        {travel.truck?.patent} - {travel.truck?.model}
+                      </p>
+
+                      <p className="w-3/12">
+                        {travel.truck_assistant?.name}{" "}
+                        {travel.truck_assistant?.lastname}
+                      </p>
+                      <p className="w-3/12">
+                        {travel.semi?.patent === "-"
+                          ? "-"
+                          : travel.semi?.patent}{" "}
+                        {travel.semi?.model === "-" ? "" : travel.semi?.model}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-center py-5 text-lg">
+                This employee has not yet travelled this month
+              </p>
+            )}
+          </div>
+        </>
+      )}
+      {filterTravelsAssistant.length !== 0 && (
+        <>
+          <div className=" flex text-2xl item-center text-center py-4">
+            <p className="w-2/12">Date</p>
+            <p className="w-4/12">Truck</p>
+            <p className="w-3/12">Driver</p>
+            <p className="w-3/12">Semirremolque</p>
+          </div>
+
+          <div>
+            {filterMonthAssistant.length ? (
+              <div>
+                {filterMonthAssistant.map((travel) => (
+                  <div key={travel.id_travel} className="flex items-center">
+                    <div className="flex w-full text-center p-4 border-b-2 text-xl">
+                      <p className="w-2/12">{formatDate(travel.date)}</p>
+                      <p className="w-4/12">
+                        {travel.truck?.patent} - {travel.truck?.model}
+                      </p>
+
+                      <p className="w-3/12">
+                        {travel.truck_driver?.name}{" "}
+                        {travel.truck_driver?.lastname}
+                      </p>
+                      <p className="w-3/12">
+                        {travel.semi?.patent === "-"
+                          ? "-"
+                          : travel.semi?.patent}{" "}
+                        {travel.semi?.model === "-" ? "" : travel.semi?.model}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-center py-5 text-lg">
+                This employee has not yet travelled this month
+              </p>
+            )}
+          </div>
+        </>
+      )}
+
+      <div className="p-4 text-2xl">
+        Total travels:{" "}
+        {filterTravels.length !== 0
+          ? filterMonth.length
+          : filterMonthAssistant.length}
       </div>
-      <div className="p-4 text-2xl">Total travels: {filterMonth.length}</div>
     </div>
   );
 };

@@ -45,7 +45,7 @@ const ViewTravel = () => {
         <div className="flex">
           <Link
             className="bg-primary mr-4 text-white text-3xl p-1 flex rounded-full hover:opacity-80 hover:transition-colors"
-            to={"/employees"}
+            to={"/travels"}
           >
             <IoChevronBack />
           </Link>
