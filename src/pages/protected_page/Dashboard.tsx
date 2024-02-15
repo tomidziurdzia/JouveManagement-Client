@@ -17,7 +17,7 @@ const Dashboard = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const travelFilterByDate = travels.filter(
+  const travelFilterByDate: TravelInterface[] = travels.filter(
     (travel) => travel.date === filterDate
   );
 

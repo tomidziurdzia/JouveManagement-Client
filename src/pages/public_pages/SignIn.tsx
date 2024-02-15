@@ -89,6 +89,11 @@ const SignIn = () => {
             value="Log in"
             className="bg-primary text-white w-full p-2 rounded-md shadow-sm hover:cursor-pointer hover:opacity-80"
           />
+          <div className="mt-10 text-gray-500 ">
+            <p className="flex justify-center text-2xl">User Demo</p>
+            <p>Email: admin@admin.com</p>
+            <p>Password: Admin@123</p>
+          </div>
         </form>
       </div>
 
