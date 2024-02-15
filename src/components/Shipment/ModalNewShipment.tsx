@@ -186,15 +186,15 @@ const ModalNewShipment = ({ modalForm, setModalForm }: Modal) => {
                           >
                             {travel.date} - {travel.truck_driver?.name}{" "}
                             {travel.truck_driver?.lastname}{" "}
-                            {travel.truck_assistant.id_employee ===
+                            {travel.truck_assistant!.id_employee ===
                             "empty-assistant"
                               ? ""
                               : `- ${travel.truck_assistant?.name}
                             ${travel.truck_assistant?.lastname} `}{" "}
                             {" - " + travel.truck?.patent}
-                            {travel.semi.id_vehicle === "not_semirremolque"
+                            {travel.semi!.id_vehicle === "not_semirremolque"
                               ? ""
-                              : `- ${travel.semi.patent}`}
+                              : `- ${travel.semi!.patent}`}
                           </option>
                         ))}
                       </select>
