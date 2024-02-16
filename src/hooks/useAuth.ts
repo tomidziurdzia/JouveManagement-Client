@@ -15,6 +15,13 @@ export const useAuth = () => {
         password,
       });
 
+      const res = await clientAxios.post("/auth/login", {
+        email,
+        password,
+      });
+
+      console.log(res);
+
       localStorage.setItem("token", data.token);
       dispatch(onLogin({ businessName: data.businessName, email: data.email }));
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

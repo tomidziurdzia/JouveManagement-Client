@@ -12,7 +12,6 @@ clientAxios.interceptors.request.use((config: any) => {
     Authorization: `Bearer ${localStorage.getItem("token")}`,
   };
 
-  console.log(config);
   return config;
 });
 
