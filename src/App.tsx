@@ -33,7 +33,7 @@ const App = () => {
       <Routes>
         {status === "not-authenticated" ? (
           <>
-            <Route path="/auth/*" element={<PublicRoutes />} />
+            <Route path="/*" element={<PublicRoutes />} />
             <Route path="/*" element={<Navigate to="/auth/signin" />} />
           </>
         ) : (
