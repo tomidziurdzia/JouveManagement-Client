@@ -9,6 +9,8 @@ export const useAuth = () => {
   const startLogin = async ({ email, password }: BusinessInterface) => {
     dispatch(onChecking);
 
+    console.log("hola");
+
     try {
       const { data } = await clientAxios.post("/auth/login", {
         email,
