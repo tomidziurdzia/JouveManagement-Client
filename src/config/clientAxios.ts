@@ -7,6 +7,7 @@ const clientAxios = axios.create({
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 clientAxios.interceptors.request.use((config: any) => {
   config.headers = {
+    ...config.headers,
     "Content-Type": "application/json",
     Authorization: `Bearer ${localStorage.getItem("token")}`,
   };
