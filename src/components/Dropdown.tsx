@@ -16,7 +16,9 @@ const Dropdown = () => {
         <Menu.Button>
           <div className=" flex items-center gap-2 hover:cursor-pointer hover:bg-gray-100 hover:transition-colors px-4 py-2 rounded-md">
             <img
-              src={"../../public/logo.jpg"}
+              src={
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTP8dN55n4DgJgGfjHVoyvfwNhxYbAvc-X4zJOYQQ_WOLXrH-hwQUkNxXWUmpPKVLNttk&usqp=CAU"
+              }
               className="w-10 h-10 rounded-full"
             />
             <div>
