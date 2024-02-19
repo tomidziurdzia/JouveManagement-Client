@@ -4,6 +4,8 @@ const clientAxios = axios.create({
   baseURL: `${import.meta.env.VITE_BACKEND_URL}/api`,
 });
 
+// Todo: configurar interceptores
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 clientAxios.interceptors.request.use((config: any) => {
   config.headers = {
@@ -14,5 +16,4 @@ clientAxios.interceptors.request.use((config: any) => {
 
   return config;
 });
-
 export default clientAxios;
