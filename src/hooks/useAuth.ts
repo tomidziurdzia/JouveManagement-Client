@@ -8,8 +8,12 @@ export const useAuth = () => {
 
   const startLogin = async ({ email, password }: BusinessInterface) => {
     dispatch(onChecking);
+    const res = await clientAxios.post("/auth/login", {
+      email,
+      password,
+    });
 
-    console.log("hola");
+    console.log(res);
 
     try {
       const { data } = await clientAxios.post("/auth/login", {
@@ -17,17 +21,11 @@ export const useAuth = () => {
         password,
       });
 
-      const res = await clientAxios.post("/auth/login", {
-        email,
-        password,
-      });
-
-      console.log(res);
-
       localStorage.setItem("token", data.token);
       dispatch(onLogin({ businessName: data.businessName, email: data.email }));
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
+      console.log(error);
       dispatch(onLogout({ msg: error.response.data.msg, error: true }));
     }
   };
